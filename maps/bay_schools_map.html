@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_c09524fe27676068e9fdca4f64a4ff70 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+     <div style="position: fixed; 
+     bottom: 50px; left: 50px; width: 200px; height: 130px; 
+     border:2px solid grey; z-index:9999; font-size:14px;
+     background-color: white; opacity: 0.8; padding: 10px;">
+     <b>Children per School</b><br>
+     <i class="fa fa-circle" style="color:red"></i> > 1000 (Underserved)<br>
+     <i class="fa fa-circle" style="color:orange"></i> 500 - 1000<br>
+     <i class="fa fa-circle" style="color:green"></i> < 500 (Better coverage)<br>
+     <br>
+     <i>Circle size represents total school-age population.</i>
+     </div>
+     
+    
+            <div class="folium-map" id="map_c09524fe27676068e9fdca4f64a4ff70" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_c09524fe27676068e9fdca4f64a4ff70 = L.map(
+                "map_c09524fe27676068e9fdca4f64a4ff70",
+                {
+                    center: [11.21309017654595, 12.389716554933548],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_d5d5cf9935e3f98f0c3cecb3da1b1336 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_d5d5cf9935e3f98f0c3cecb3da1b1336.addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+            var circle_marker_e3a93528860b896c8548f1da68bbbad5 = L.circleMarker(
+                [9.406058789156672, 12.008435397590409],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.686549575348067, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_a5da588d30a7878dd48436ea594b1a23 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9c80a0c5bc840ccc3cd31c0215a96120 = $(`<div id="html_9c80a0c5bc840ccc3cd31c0215a96120" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Demsa<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 96,285<br>         <b>Available Schools:</b> 166<br>         <b>Children per School:</b> 580.0         </div>`)[0];
+                popup_a5da588d30a7878dd48436ea594b1a23.setContent(html_9c80a0c5bc840ccc3cd31c0215a96120);
+            
+        
+
+        circle_marker_e3a93528860b896c8548f1da68bbbad5.bindPopup(popup_a5da588d30a7878dd48436ea594b1a23)
+        ;
+
+        
+    
+    
+            circle_marker_e3a93528860b896c8548f1da68bbbad5.bindTooltip(
+                `<div>
+                     Demsa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ae54a0787278939dd3db988767afe5db = L.circleMarker(
+                [9.207551116982257, 12.625346585653293],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.41527257127257, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_60d1ffe9847e5a677cc6250b7f872ff5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a766aba91ec3ab73a7989c8a59702e74 = $(`<div id="html_a766aba91ec3ab73a7989c8a59702e74" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Fufore<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 113,050<br>         <b>Available Schools:</b> 233<br>         <b>Children per School:</b> 485.2         </div>`)[0];
+                popup_60d1ffe9847e5a677cc6250b7f872ff5.setContent(html_a766aba91ec3ab73a7989c8a59702e74);
+            
+        
+
+        circle_marker_ae54a0787278939dd3db988767afe5db.bindPopup(popup_60d1ffe9847e5a677cc6250b7f872ff5)
+        ;
+
+        
+    
+    
+            circle_marker_ae54a0787278939dd3db988767afe5db.bindTooltip(
+                `<div>
+                     Fufore
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0c914f64f035925ae0654e7d8b7f232e = L.circleMarker(
+                [8.458328948098947, 12.04204432012247],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.191857544839976, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_8466c6372f144eed2dfc2313646b44b0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2c06a42d8fddf0ca4bc86aceff2ef1e3 = $(`<div id="html_2c06a42d8fddf0ca4bc86aceff2ef1e3" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Ganye<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 91,735<br>         <b>Available Schools:</b> 156<br>         <b>Children per School:</b> 588.0         </div>`)[0];
+                popup_8466c6372f144eed2dfc2313646b44b0.setContent(html_2c06a42d8fddf0ca4bc86aceff2ef1e3);
+            
+        
+
+        circle_marker_0c914f64f035925ae0654e7d8b7f232e.bindPopup(popup_8466c6372f144eed2dfc2313646b44b0)
+        ;
+
+        
+    
+    
+            circle_marker_0c914f64f035925ae0654e7d8b7f232e.bindTooltip(
+                `<div>
+                     Ganye
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e4f4a7ad52dbc337923e5caaf7fada2c = L.circleMarker(
+                [9.40234107216221, 12.482215979797342],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.647159041109767, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_17776b65a67d2e42d9aa0e1b088e4891 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_01ab5c7d3b6be2af27c32964af58907d = $(`<div id="html_01ab5c7d3b6be2af27c32964af58907d" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Girei<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 70,070<br>         <b>Available Schools:</b> 148<br>         <b>Children per School:</b> 473.4         </div>`)[0];
+                popup_17776b65a67d2e42d9aa0e1b088e4891.setContent(html_01ab5c7d3b6be2af27c32964af58907d);
+            
+        
+
+        circle_marker_e4f4a7ad52dbc337923e5caaf7fada2c.bindPopup(popup_17776b65a67d2e42d9aa0e1b088e4891)
+        ;
+
+        
+    
+    
+            circle_marker_e4f4a7ad52dbc337923e5caaf7fada2c.bindTooltip(
+                `<div>
+                     Girei
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_2de827c950d553b8fb1697ba748b0a6e = L.circleMarker(
+                [10.18002445845719, 12.504835902914333],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.828465447590546, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_d303672d2f75a9d91a5ea5269ddfa79c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_82ba5a996e2ed8a92040a5f9af9cc1fa = $(`<div id="html_82ba5a996e2ed8a92040a5f9af9cc1fa" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Gombi<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 79,765<br>         <b>Available Schools:</b> 175<br>         <b>Children per School:</b> 455.8         </div>`)[0];
+                popup_d303672d2f75a9d91a5ea5269ddfa79c.setContent(html_82ba5a996e2ed8a92040a5f9af9cc1fa);
+            
+        
+
+        circle_marker_2de827c950d553b8fb1697ba748b0a6e.bindPopup(popup_d303672d2f75a9d91a5ea5269ddfa79c)
+        ;
+
+        
+    
+    
+            circle_marker_2de827c950d553b8fb1697ba748b0a6e.bindTooltip(
+                `<div>
+                     Gombi
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_637a74538b846ce37fe731aae6ce35d0 = L.circleMarker(
+                [9.843516062057928, 11.903294770779764],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.577225814531516, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_8d64e83cf502ce746f605708220ea086 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e08d5e354407801ed20a904fdfbe9f92 = $(`<div id="html_e08d5e354407801ed20a904fdfbe9f92" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Guyuk<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 95,270<br>         <b>Available Schools:</b> 159<br>         <b>Children per School:</b> 599.2         </div>`)[0];
+                popup_8d64e83cf502ce746f605708220ea086.setContent(html_e08d5e354407801ed20a904fdfbe9f92);
+            
+        
+
+        circle_marker_637a74538b846ce37fe731aae6ce35d0.bindPopup(popup_8d64e83cf502ce746f605708220ea086)
+        ;
+
+        
+    
+    
+            circle_marker_637a74538b846ce37fe731aae6ce35d0.bindTooltip(
+                `<div>
+                     Guyuk
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_239c5b28f958256624b75cb8f5a6a3c9 = L.circleMarker(
+                [10.278086254539668, 12.990611657976483],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.145581263504024, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_c25ce7bbb490ddb1f8746a35bd36e8b4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_59b9308a01b130faa7046a0352062b98 = $(`<div id="html_59b9308a01b130faa7046a0352062b98" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Hong<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 91,315<br>         <b>Available Schools:</b> 243<br>         <b>Children per School:</b> 375.8         </div>`)[0];
+                popup_c25ce7bbb490ddb1f8746a35bd36e8b4.setContent(html_59b9308a01b130faa7046a0352062b98);
+            
+        
+
+        circle_marker_239c5b28f958256624b75cb8f5a6a3c9.bindPopup(popup_c25ce7bbb490ddb1f8746a35bd36e8b4)
+        ;
+
+        
+    
+    
+            circle_marker_239c5b28f958256624b75cb8f5a6a3c9.bindTooltip(
+                `<div>
+                     Hong
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_02bfc1c4f8ff998ec4b11014c9bc9af0 = L.circleMarker(
+                [8.683041175266434, 12.264704656806444],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.099198436200826, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_fe8c3cca38f0dbdfceeb580902acb40b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4684d39c2bbc35343fca1dd0c9b7a9b1 = $(`<div id="html_4684d39c2bbc35343fca1dd0c9b7a9b1" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Jada<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 90,895<br>         <b>Available Schools:</b> 166<br>         <b>Children per School:</b> 547.6         </div>`)[0];
+                popup_fe8c3cca38f0dbdfceeb580902acb40b.setContent(html_4684d39c2bbc35343fca1dd0c9b7a9b1);
+            
+        
+
+        circle_marker_02bfc1c4f8ff998ec4b11014c9bc9af0.bindPopup(popup_fe8c3cca38f0dbdfceeb580902acb40b)
+        ;
+
+        
+    
+    
+            circle_marker_02bfc1c4f8ff998ec4b11014c9bc9af0.bindTooltip(
+                `<div>
+                     Jada
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5d5c4c66fe40709df298a2415b8b3c25 = L.circleMarker(
+                [9.564053309155803, 11.707838653944403],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.337958528803068, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_448eefab128ec52654241abf22e64bc2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3a6f7ef1f465bc3e0ae6f033e8a3c310 = $(`<div id="html_3a6f7ef1f465bc3e0ae6f033e8a3c310" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Lamurde<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 60,059<br>         <b>Available Schools:</b> 110<br>         <b>Children per School:</b> 546.0         </div>`)[0];
+                popup_448eefab128ec52654241abf22e64bc2.setContent(html_3a6f7ef1f465bc3e0ae6f033e8a3c310);
+            
+        
+
+        circle_marker_5d5c4c66fe40709df298a2415b8b3c25.bindPopup(popup_448eefab128ec52654241abf22e64bc2)
+        ;
+
+        
+    
+    
+            circle_marker_5d5c4c66fe40709df298a2415b8b3c25.bindTooltip(
+                `<div>
+                     Lamurde
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c449c7193779124e76709dfa0ec332c1 = L.circleMarker(
+                [10.808027266055088, 13.509829688073436],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.004937594387208, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_da9af3b08c1e1bb1013d18472aec0a79 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ce9a7eca66fb45054af243818bc9294f = $(`<div id="html_ce9a7eca66fb45054af243818bc9294f" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Madagali<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 72,940<br>         <b>Available Schools:</b> 109<br>         <b>Children per School:</b> 669.2         </div>`)[0];
+                popup_da9af3b08c1e1bb1013d18472aec0a79.setContent(html_ce9a7eca66fb45054af243818bc9294f);
+            
+        
+
+        circle_marker_c449c7193779124e76709dfa0ec332c1.bindPopup(popup_da9af3b08c1e1bb1013d18472aec0a79)
+        ;
+
+        
+    
+    
+            circle_marker_c449c7193779124e76709dfa0ec332c1.bindTooltip(
+                `<div>
+                     Madagali
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d279c7ee69838be90745084351bf6333 = L.circleMarker(
+                [9.958614261773345, 13.179168819946737],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.25682762547615, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_0e4d6484a872c062334d3abdc44d4a7c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4b3341f9772a5ee99be2a1a9fb23435b = $(`<div id="html_4b3341f9772a5ee99be2a1a9fb23435b" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Maiha<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 59,464<br>         <b>Available Schools:</b> 107<br>         <b>Children per School:</b> 555.7         </div>`)[0];
+                popup_0e4d6484a872c062334d3abdc44d4a7c.setContent(html_4b3341f9772a5ee99be2a1a9fb23435b);
+            
+        
+
+        circle_marker_d279c7ee69838be90745084351bf6333.bindPopup(popup_0e4d6484a872c062334d3abdc44d4a7c)
+        ;
+
+        
+    
+    
+            circle_marker_d279c7ee69838be90745084351bf6333.bindTooltip(
+                `<div>
+                     Maiha
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1cc8757b6b8a0595865fc6b20bda1206 = L.circleMarker(
+                [10.596350166666705, 13.391622950000038],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.29766825292631, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_78ec016d6a5c3f2d4c0c5b53bc25bf2d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_89117e7e6056c27cec9615c2b04e1b88 = $(`<div id="html_89117e7e6056c27cec9615c2b04e1b88" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Michika<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 83,790<br>         <b>Available Schools:</b> 120<br>         <b>Children per School:</b> 698.2         </div>`)[0];
+                popup_78ec016d6a5c3f2d4c0c5b53bc25bf2d.setContent(html_89117e7e6056c27cec9615c2b04e1b88);
+            
+        
+
+        circle_marker_1cc8757b6b8a0595865fc6b20bda1206.bindPopup(popup_78ec016d6a5c3f2d4c0c5b53bc25bf2d)
+        ;
+
+        
+    
+    
+            circle_marker_1cc8757b6b8a0595865fc6b20bda1206.bindTooltip(
+                `<div>
+                     Michika
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_46dc939c2e705baa55ca111ba65cf736 = L.circleMarker(
+                [10.340633846221184, 13.313024214277425],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.062470400705617, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_d547003be6bbdda8d4cbc6024deac255 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_05c8bf4ed5701692a8524aeb8f5dd0e4 = $(`<div id="html_05c8bf4ed5701692a8524aeb8f5dd0e4" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Mubi North<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 81,760<br>         <b>Available Schools:</b> 146<br>         <b>Children per School:</b> 560.0         </div>`)[0];
+                popup_d547003be6bbdda8d4cbc6024deac255.setContent(html_05c8bf4ed5701692a8524aeb8f5dd0e4);
+            
+        
+
+        circle_marker_46dc939c2e705baa55ca111ba65cf736.bindPopup(popup_d547003be6bbdda8d4cbc6024deac255)
+        ;
+
+        
+    
+    
+            circle_marker_46dc939c2e705baa55ca111ba65cf736.bindTooltip(
+                `<div>
+                     Mubi North
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f2b8c8430e1cbf990cf07643b8e9e29f = L.circleMarker(
+                [10.212124304474754, 13.290402379920277],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.655971605474825, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_49b72133722bafd802a8d22d462d1ccc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8ab8509b1d9a019217160c42d31f1e83 = $(`<div id="html_8ab8509b1d9a019217160c42d31f1e83" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Mubi South<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 70,140<br>         <b>Available Schools:</b> 121<br>         <b>Children per School:</b> 579.7         </div>`)[0];
+                popup_49b72133722bafd802a8d22d462d1ccc.setContent(html_8ab8509b1d9a019217160c42d31f1e83);
+            
+        
+
+        circle_marker_f2b8c8430e1cbf990cf07643b8e9e29f.bindPopup(popup_49b72133722bafd802a8d22d462d1ccc)
+        ;
+
+        
+    
+    
+            circle_marker_f2b8c8430e1cbf990cf07643b8e9e29f.bindTooltip(
+                `<div>
+                     Mubi South
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b64edb74bd51cda101ca561891984ea4 = L.circleMarker(
+                [9.457741926136228, 11.88411849301956],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.820406352203857, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_b0c9ccb7254e3ca04480f43667665dc7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eaa33a688c265fed6a1c07ebf9531ee5 = $(`<div id="html_eaa33a688c265fed6a1c07ebf9531ee5" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Numan<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 49,420<br>         <b>Available Schools:</b> 107<br>         <b>Children per School:</b> 461.9         </div>`)[0];
+                popup_b0c9ccb7254e3ca04480f43667665dc7.setContent(html_eaa33a688c265fed6a1c07ebf9531ee5);
+            
+        
+
+        circle_marker_b64edb74bd51cda101ca561891984ea4.bindPopup(popup_b0c9ccb7254e3ca04480f43667665dc7)
+        ;
+
+        
+    
+    
+            circle_marker_b64edb74bd51cda101ca561891984ea4.bindTooltip(
+                `<div>
+                     Numan
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3ecdc09cd3481ca8c777fc2209a69f6d = L.circleMarker(
+                [9.86072814102569, 12.071252512820559],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.873850222522755, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_3ca7dc369ff36eeb835d6f4e3861d289 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a6a0505764414c13425f96fa381bcdcb = $(`<div id="html_a6a0505764414c13425f96fa381bcdcb" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Shelleng<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 80,150<br>         <b>Available Schools:</b> 78<br>         <b>Children per School:</b> 1027.6         </div>`)[0];
+                popup_3ca7dc369ff36eeb835d6f4e3861d289.setContent(html_a6a0505764414c13425f96fa381bcdcb);
+            
+        
+
+        circle_marker_3ecdc09cd3481ca8c777fc2209a69f6d.bindPopup(popup_3ca7dc369ff36eeb835d6f4e3861d289)
+        ;
+
+        
+    
+    
+            circle_marker_3ecdc09cd3481ca8c777fc2209a69f6d.bindTooltip(
+                `<div>
+                     Shelleng
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ffa9a5fda79531eb0025d98e2c25858c = L.circleMarker(
+                [9.78542524409567, 12.507648153754872],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.638443156156644, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_978ad737bbff278b1ad5faa43a203287 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_79e2789ca3f23d31a2a9f84efe1e6901 = $(`<div id="html_79e2789ca3f23d31a2a9f84efe1e6901" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Song<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 105,350<br>         <b>Available Schools:</b> 173<br>         <b>Children per School:</b> 609.0         </div>`)[0];
+                popup_978ad737bbff278b1ad5faa43a203287.setContent(html_79e2789ca3f23d31a2a9f84efe1e6901);
+            
+        
+
+        circle_marker_ffa9a5fda79531eb0025d98e2c25858c.bindPopup(popup_978ad737bbff278b1ad5faa43a203287)
+        ;
+
+        
+    
+    
+            circle_marker_ffa9a5fda79531eb0025d98e2c25858c.bindTooltip(
+                `<div>
+                     Song
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_61f1a285b2c0e05f3b21c8ef94319d37 = L.circleMarker(
+                [8.111035460526361, 11.901919710526363],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.190273554396347, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_4c606c4b4b4a101c3a3a5c5e0248ce81 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1ef3ca5fda4d38a4caff5e87cebb5030 = $(`<div id="html_1ef3ca5fda4d38a4caff5e87cebb5030" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Toungo<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 28,175<br>         <b>Available Schools:</b> 76<br>         <b>Children per School:</b> 370.7         </div>`)[0];
+                popup_4c606c4b4b4a101c3a3a5c5e0248ce81.setContent(html_1ef3ca5fda4d38a4caff5e87cebb5030);
+            
+        
+
+        circle_marker_61f1a285b2c0e05f3b21c8ef94319d37.bindPopup(popup_4c606c4b4b4a101c3a3a5c5e0248ce81)
+        ;
+
+        
+    
+    
+            circle_marker_61f1a285b2c0e05f3b21c8ef94319d37.bindTooltip(
+                `<div>
+                     Toungo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5f2a572267c3137e515ef581285eb8de = L.circleMarker(
+                [9.268977299059896, 12.444264546517147],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.888606879176002, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_cd320e71ee846213b990d7a7d760ccef = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9f5be30f222cd5956780b19f02c5e84a = $(`<div id="html_9f5be30f222cd5956780b19f02c5e84a" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Yola North<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 107,800<br>         <b>Available Schools:</b> 164<br>         <b>Children per School:</b> 657.3         </div>`)[0];
+                popup_cd320e71ee846213b990d7a7d760ccef.setContent(html_9f5be30f222cd5956780b19f02c5e84a);
+            
+        
+
+        circle_marker_5f2a572267c3137e515ef581285eb8de.bindPopup(popup_cd320e71ee846213b990d7a7d760ccef)
+        ;
+
+        
+    
+    
+            circle_marker_5f2a572267c3137e515ef581285eb8de.bindTooltip(
+                `<div>
+                     Yola North
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e3ac57823fedd58f42cb0e664200a8a0 = L.circleMarker(
+                [9.227217908988589, 12.426615007541722],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.710212650578377, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_a927cf6302d3c73103261821a78bf4a1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2b680a50126f5e83e19d584ed23cad7c = $(`<div id="html_2b680a50126f5e83e19d584ed23cad7c" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Yola South<br>         <b>State:</b> Adamawa<br>         <b>Est. School Age Pop:</b> 106,050<br>         <b>Available Schools:</b> 188<br>         <b>Children per School:</b> 564.1         </div>`)[0];
+                popup_a927cf6302d3c73103261821a78bf4a1.setContent(html_2b680a50126f5e83e19d584ed23cad7c);
+            
+        
+
+        circle_marker_e3ac57823fedd58f42cb0e664200a8a0.bindPopup(popup_a927cf6302d3c73103261821a78bf4a1)
+        ;
+
+        
+    
+    
+            circle_marker_e3ac57823fedd58f42cb0e664200a8a0.bindTooltip(
+                `<div>
+                     Yola South
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_615323cecc2d1d81522e0fc0b577ae02 = L.circleMarker(
+                [13.582265206644536, 13.2594545459369],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.10114050144705, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_c31b8618efb79e90758d362ca39a860a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d3a3b1afb6ec6533d58413ddfb908187 = $(`<div id="html_d3a3b1afb6ec6533d58413ddfb908187" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Abadam<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 51,310<br>         <b>Available Schools:</b> 9<br>         <b>Children per School:</b> 5701.1         </div>`)[0];
+                popup_c31b8618efb79e90758d362ca39a860a.setContent(html_d3a3b1afb6ec6533d58413ddfb908187);
+            
+        
+
+        circle_marker_615323cecc2d1d81522e0fc0b577ae02.bindPopup(popup_c31b8618efb79e90758d362ca39a860a)
+        ;
+
+        
+    
+    
+            circle_marker_615323cecc2d1d81522e0fc0b577ae02.bindTooltip(
+                `<div>
+                     Abadam
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ae867bad6b4a6e3d4ead82aaa7c00f80 = L.circleMarker(
+                [11.47890669898487, 13.864880177791987],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.813078988486875, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_60a8a13864793070ab270a6b2ad4fc51 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cbd40c3da656ffbcb4a800a0b3f1f3da = $(`<div id="html_cbd40c3da656ffbcb4a800a0b3f1f3da" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Bama<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 138,530<br>         <b>Available Schools:</b> 88<br>         <b>Children per School:</b> 1574.2         </div>`)[0];
+                popup_60a8a13864793070ab270a6b2ad4fc51.setContent(html_cbd40c3da656ffbcb4a800a0b3f1f3da);
+            
+        
+
+        circle_marker_ae867bad6b4a6e3d4ead82aaa7c00f80.bindPopup(popup_60a8a13864793070ab270a6b2ad4fc51)
+        ;
+
+        
+    
+    
+            circle_marker_ae867bad6b4a6e3d4ead82aaa7c00f80.bindTooltip(
+                `<div>
+                     Bama
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_af77f0ce7c566aa3358f404c4e96f7a6 = L.circleMarker(
+                [10.4063954251473, 11.679790680537778],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.427169801893804, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_7deb07fa2e7ae5797ff6ea104b0f7644 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7e79aca5814da238fe96fdee224fe5a1 = $(`<div id="html_7e79aca5814da238fe96fdee224fe5a1" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Bayo<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 40,565<br>         <b>Available Schools:</b> 54<br>         <b>Children per School:</b> 751.2         </div>`)[0];
+                popup_7deb07fa2e7ae5797ff6ea104b0f7644.setContent(html_7e79aca5814da238fe96fdee224fe5a1);
+            
+        
+
+        circle_marker_af77f0ce7c566aa3358f404c4e96f7a6.bindPopup(popup_7deb07fa2e7ae5797ff6ea104b0f7644)
+        ;
+
+        
+    
+    
+            circle_marker_af77f0ce7c566aa3358f404c4e96f7a6.bindTooltip(
+                `<div>
+                     Bayo
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_39539de41105884faf4093b345f00b4d = L.circleMarker(
+                [10.707696090974897, 12.190157516282397],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.0138840697041, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_316fdf6734534926e01f81f21794a763 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ce94a21ed1c80d0c6a5f2436d60d8f1e = $(`<div id="html_ce94a21ed1c80d0c6a5f2436d60d8f1e" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Biu<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 90,125<br>         <b>Available Schools:</b> 88<br>         <b>Children per School:</b> 1024.1         </div>`)[0];
+                popup_316fdf6734534926e01f81f21794a763.setContent(html_ce94a21ed1c80d0c6a5f2436d60d8f1e);
+            
+        
+
+        circle_marker_39539de41105884faf4093b345f00b4d.bindPopup(popup_316fdf6734534926e01f81f21794a763)
+        ;
+
+        
+    
+    
+            circle_marker_39539de41105884faf4093b345f00b4d.bindTooltip(
+                `<div>
+                     Biu
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eab6a1772642b6425d16361659d8618d = L.circleMarker(
+                [10.835369723579689, 12.850393134117686],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.296340919151517, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_35bdcd7efa767232608c9ec7610a9e82 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_18a22d0ea7c24cf0624af808b813ee6f = $(`<div id="html_18a22d0ea7c24cf0624af808b813ee6f" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Chibok<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 34,020<br>         <b>Available Schools:</b> 58<br>         <b>Children per School:</b> 586.6         </div>`)[0];
+                popup_35bdcd7efa767232608c9ec7610a9e82.setContent(html_18a22d0ea7c24cf0624af808b813ee6f);
+            
+        
+
+        circle_marker_eab6a1772642b6425d16361659d8618d.bindPopup(popup_35bdcd7efa767232608c9ec7610a9e82)
+        ;
+
+        
+    
+    
+            circle_marker_eab6a1772642b6425d16361659d8618d.bindTooltip(
+                `<div>
+                     Chibok
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a6149f86cfb0a4f23c63ccf8dd96af52 = L.circleMarker(
+                [11.113597140375708, 12.690969371875918],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.054910298868847, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_7425a7aa1b88f37f7bea03abeab151e4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_71281de805127c3532f1493acb507821 = $(`<div id="html_71281de805127c3532f1493acb507821" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Damboa<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 119,594<br>         <b>Available Schools:</b> 105<br>         <b>Children per School:</b> 1139.0         </div>`)[0];
+                popup_7425a7aa1b88f37f7bea03abeab151e4.setContent(html_71281de805127c3532f1493acb507821);
+            
+        
+
+        circle_marker_a6149f86cfb0a4f23c63ccf8dd96af52.bindPopup(popup_7425a7aa1b88f37f7bea03abeab151e4)
+        ;
+
+        
+    
+    
+            circle_marker_a6149f86cfb0a4f23c63ccf8dd96af52.bindTooltip(
+                `<div>
+                     Damboa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_232659eeae23527cef983444a8b9bc9c = L.circleMarker(
+                [12.007235636997157, 13.986206924330396],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.472556349873152, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_eec0983a6adfceb90fff1a01e5e92ba5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_161936b614f80653738ca00fee5a9ead = $(`<div id="html_161936b614f80653738ca00fee5a9ead" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Dikwa<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 53,865<br>         <b>Available Schools:</b> 37<br>         <b>Children per School:</b> 1455.8         </div>`)[0];
+                popup_eec0983a6adfceb90fff1a01e5e92ba5.setContent(html_161936b614f80653738ca00fee5a9ead);
+            
+        
+
+        circle_marker_232659eeae23527cef983444a8b9bc9c.bindPopup(popup_eec0983a6adfceb90fff1a01e5e92ba5)
+        ;
+
+        
+    
+    
+            circle_marker_232659eeae23527cef983444a8b9bc9c.bindTooltip(
+                `<div>
+                     Dikwa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_3c0d02ef3bc07e2b0f09a8255e186f0a = L.circleMarker(
+                [12.571806155585636, 12.788789039317738],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.57058606147546, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_3a511cc2706e7ef28af2c0624ebc1c8d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f023cf6eb2745a1de060e9e0a5e51995 = $(`<div id="html_f023cf6eb2745a1de060e9e0a5e51995" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Gubio<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 77,595<br>         <b>Available Schools:</b> 22<br>         <b>Children per School:</b> 3527.0         </div>`)[0];
+                popup_3a511cc2706e7ef28af2c0624ebc1c8d.setContent(html_f023cf6eb2745a1de060e9e0a5e51995);
+            
+        
+
+        circle_marker_3c0d02ef3bc07e2b0f09a8255e186f0a.bindPopup(popup_3a511cc2706e7ef28af2c0624ebc1c8d)
+        ;
+
+        
+    
+    
+            circle_marker_3c0d02ef3bc07e2b0f09a8255e186f0a.bindTooltip(
+                `<div>
+                     Gubio
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d9cf9e140603681d0c3e69b41a31d4bc = L.circleMarker(
+                [12.76355735427316, 13.271570556032216],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.788884714917183, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_e535249833f150b313135dc6ea98fa53 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d595719aaa470411be49a408d8d202d5 = $(`<div id="html_d595719aaa470411be49a408d8d202d5" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Guzamala<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 49,210<br>         <b>Available Schools:</b> 20<br>         <b>Children per School:</b> 2460.5         </div>`)[0];
+                popup_e535249833f150b313135dc6ea98fa53.setContent(html_d595719aaa470411be49a408d8d202d5);
+            
+        
+
+        circle_marker_d9cf9e140603681d0c3e69b41a31d4bc.bindPopup(popup_e535249833f150b313135dc6ea98fa53)
+        ;
+
+        
+    
+    
+            circle_marker_d9cf9e140603681d0c3e69b41a31d4bc.bindTooltip(
+                `<div>
+                     Guzamala
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f41717bbbbe785431a7034e5f626f8fa = L.circleMarker(
+                [11.110352528582924, 13.705676778685113],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.10599751276796, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_d7593247339ba74d2970b58edd7eacde = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0af268ce825f9e50d05ccf5c79e7e34c = $(`<div id="html_0af268ce825f9e50d05ccf5c79e7e34c" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Gwoza<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 141,820<br>         <b>Available Schools:</b> 95<br>         <b>Children per School:</b> 1492.8         </div>`)[0];
+                popup_d7593247339ba74d2970b58edd7eacde.setContent(html_0af268ce825f9e50d05ccf5c79e7e34c);
+            
+        
+
+        circle_marker_f41717bbbbe785431a7034e5f626f8fa.bindPopup(popup_d7593247339ba74d2970b58edd7eacde)
+        ;
+
+        
+    
+    
+            circle_marker_f41717bbbbe785431a7034e5f626f8fa.bindTooltip(
+                `<div>
+                     Gwoza
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_23cbba2c19a928e9b7fd22516608f5f7 = L.circleMarker(
+                [10.483535012094562, 12.2454720659067],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.588349325153885, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_6f65afecb4ebb43895baeaae18252434 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a4a8f67ef4f8a5a367a25b66ff59e430 = $(`<div id="html_a4a8f67ef4f8a5a367a25b66ff59e430" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Hawul<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 61,914<br>         <b>Available Schools:</b> 132<br>         <b>Children per School:</b> 469.0         </div>`)[0];
+                popup_6f65afecb4ebb43895baeaae18252434.setContent(html_a4a8f67ef4f8a5a367a25b66ff59e430);
+            
+        
+
+        circle_marker_23cbba2c19a928e9b7fd22516608f5f7.bindPopup(popup_6f65afecb4ebb43895baeaae18252434)
+        ;
+
+        
+    
+    
+            circle_marker_23cbba2c19a928e9b7fd22516608f5f7.bindTooltip(
+                `<div>
+                     Hawul
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d4fcc43bd2bd607b84d1ab5c9fbe55f9 = L.circleMarker(
+                [11.84038310302526, 13.176248598344777],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.831679326662485, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_24ae22964d7bf2d3424e8a49b43f9307 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_446415a6f26cc2e19bc28206e91bb0c4 = $(`<div id="html_446415a6f26cc2e19bc28206e91bb0c4" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Jere<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 107,240<br>         <b>Available Schools:</b> 62<br>         <b>Children per School:</b> 1729.7         </div>`)[0];
+                popup_24ae22964d7bf2d3424e8a49b43f9307.setContent(html_446415a6f26cc2e19bc28206e91bb0c4);
+            
+        
+
+        circle_marker_d4fcc43bd2bd607b84d1ab5c9fbe55f9.bindPopup(popup_24ae22964d7bf2d3424e8a49b43f9307)
+        ;
+
+        
+    
+    
+            circle_marker_d4fcc43bd2bd607b84d1ab5c9fbe55f9.bindTooltip(
+                `<div>
+                     Jere
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c85589b5b992ea26df0b9008416279ca = L.circleMarker(
+                [11.635077515736562, 12.500483420835893],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.32402798718914, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_ef92fa7bb3980c9379e7750e91fb9600 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_de039018b63c21083b2d113b42cb597c = $(`<div id="html_de039018b63c21083b2d113b42cb597c" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Kaga<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 46,165<br>         <b>Available Schools:</b> 43<br>         <b>Children per School:</b> 1073.6         </div>`)[0];
+                popup_ef92fa7bb3980c9379e7750e91fb9600.setContent(html_de039018b63c21083b2d113b42cb597c);
+            
+        
+
+        circle_marker_c85589b5b992ea26df0b9008416279ca.bindPopup(popup_ef92fa7bb3980c9379e7750e91fb9600)
+        ;
+
+        
+    
+    
+            circle_marker_c85589b5b992ea26df0b9008416279ca.bindTooltip(
+                `<div>
+                     Kaga
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b53042f232a0752f26c63cec5a58691f = L.circleMarker(
+                [11.693595656742385, 13.231926271004124],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.935563248965043, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_2f9d0b1b869dd511f85fdc3d76e59963 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_58b1f85aa5286ffb7675af92844b6d31 = $(`<div id="html_58b1f85aa5286ffb7675af92844b6d31" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Konduga<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 80,675<br>         <b>Available Schools:</b> 66<br>         <b>Children per School:</b> 1222.3         </div>`)[0];
+                popup_2f9d0b1b869dd511f85fdc3d76e59963.setContent(html_58b1f85aa5286ffb7675af92844b6d31);
+            
+        
+
+        circle_marker_b53042f232a0752f26c63cec5a58691f.bindPopup(popup_2f9d0b1b869dd511f85fdc3d76e59963)
+        ;
+
+        
+    
+    
+            circle_marker_b53042f232a0752f26c63cec5a58691f.bindTooltip(
+                `<div>
+                     Konduga
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e301ceeca095ce9227db3beb1527f7eb = L.circleMarker(
+                [13.018091261596679, 13.728891197847892],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.526727572949866, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_a271b7332cfa611a70b0c21762532253 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0fb9e96a0170a553729efdc66fe282be = $(`<div id="html_0fb9e96a0170a553729efdc66fe282be" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Kukawa<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 104,265<br>         <b>Available Schools:</b> 48<br>         <b>Children per School:</b> 2172.2         </div>`)[0];
+                popup_a271b7332cfa611a70b0c21762532253.setContent(html_0fb9e96a0170a553729efdc66fe282be);
+            
+        
+
+        circle_marker_e301ceeca095ce9227db3beb1527f7eb.bindPopup(popup_a271b7332cfa611a70b0c21762532253)
+        ;
+
+        
+    
+    
+            circle_marker_e301ceeca095ce9227db3beb1527f7eb.bindTooltip(
+                `<div>
+                     Kukawa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_dfec3885a0f55cc55b26bceb5e6dfdcd = L.circleMarker(
+                [10.45293346040283, 11.912550327119865],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.369354520913763, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_2778670efbc11e356619eab1053cb4ce = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_def3969f44e6d590d02792264e07580b = $(`<div id="html_def3969f44e6d590d02792264e07580b" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Kwaya Kusar<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 29,084<br>         <b>Available Schools:</b> 45<br>         <b>Children per School:</b> 646.3         </div>`)[0];
+                popup_2778670efbc11e356619eab1053cb4ce.setContent(html_def3969f44e6d590d02792264e07580b);
+            
+        
+
+        circle_marker_dfec3885a0f55cc55b26bceb5e6dfdcd.bindPopup(popup_2778670efbc11e356619eab1053cb4ce)
+        ;
+
+        
+    
+    
+            circle_marker_dfec3885a0f55cc55b26bceb5e6dfdcd.bindTooltip(
+                `<div>
+                     Kwaya Kusar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_b8e53e58923ab7f17f3613c27fb57687 = L.circleMarker(
+                [11.943218625498648, 13.495340607409737],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.366630513334188, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_d565c7e9ea0af1abb132d37b9ee6b6ab = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6b8aaa3b8c924bf5f5631193232041ee = $(`<div id="html_6b8aaa3b8c924bf5f5631193232041ee" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Mafa<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 53,130<br>         <b>Available Schools:</b> 46<br>         <b>Children per School:</b> 1155.0         </div>`)[0];
+                popup_d565c7e9ea0af1abb132d37b9ee6b6ab.setContent(html_6b8aaa3b8c924bf5f5631193232041ee);
+            
+        
+
+        circle_marker_b8e53e58923ab7f17f3613c27fb57687.bindPopup(popup_d565c7e9ea0af1abb132d37b9ee6b6ab)
+        ;
+
+        
+    
+    
+            circle_marker_b8e53e58923ab7f17f3613c27fb57687.bindTooltip(
+                `<div>
+                     Mafa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_49524b50af7d9671807fcc332c3c0c19 = L.circleMarker(
+                [12.195940778246003, 12.786047065326768],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.87922444253851, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_3c325e80a045f19e2aa7220515c8950e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d1a8ea4d41ba0f672dfb50378a7920a4 = $(`<div id="html_d1a8ea4d41ba0f672dfb50378a7920a4" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Magumeri<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 71,925<br>         <b>Available Schools:</b> 33<br>         <b>Children per School:</b> 2179.5         </div>`)[0];
+                popup_3c325e80a045f19e2aa7220515c8950e.setContent(html_d1a8ea4d41ba0f672dfb50378a7920a4);
+            
+        
+
+        circle_marker_49524b50af7d9671807fcc332c3c0c19.bindPopup(popup_3c325e80a045f19e2aa7220515c8950e)
+        ;
+
+        
+    
+    
+            circle_marker_49524b50af7d9671807fcc332c3c0c19.bindTooltip(
+                `<div>
+                     Magumeri
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f6b748a1bd84571640734b80585c4e66 = L.circleMarker(
+                [11.839002193428362, 13.140558690885046],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 35.08212586995771, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_9bc43eda7592426f1f439e736eddbc05 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d7d558c8a30ca42ab09c804682b6462e = $(`<div id="html_d7d558c8a30ca42ab09c804682b6462e" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Maiduguri<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 276,920<br>         <b>Available Schools:</b> 91<br>         <b>Children per School:</b> 3043.1         </div>`)[0];
+                popup_9bc43eda7592426f1f439e736eddbc05.setContent(html_d7d558c8a30ca42ab09c804682b6462e);
+            
+        
+
+        circle_marker_f6b748a1bd84571640734b80585c4e66.bindPopup(popup_9bc43eda7592426f1f439e736eddbc05)
+        ;
+
+        
+    
+    
+            circle_marker_f6b748a1bd84571640734b80585c4e66.bindTooltip(
+                `<div>
+                     Maiduguri
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4a05fb85bc29e43b2fc873bb99b93f5a = L.circleMarker(
+                [12.344688517207784, 13.82055986524454],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.173623185959723, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_e2e07f2df31727a46feb014dafc6caa5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2b99b77bda2ae7bc3992932b2e1beef7 = $(`<div id="html_2b99b77bda2ae7bc3992932b2e1beef7" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Marte<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 66,360<br>         <b>Available Schools:</b> 34<br>         <b>Children per School:</b> 1951.8         </div>`)[0];
+                popup_e2e07f2df31727a46feb014dafc6caa5.setContent(html_2b99b77bda2ae7bc3992932b2e1beef7);
+            
+        
+
+        circle_marker_4a05fb85bc29e43b2fc873bb99b93f5a.bindPopup(popup_e2e07f2df31727a46feb014dafc6caa5)
+        ;
+
+        
+    
+    
+            circle_marker_4a05fb85bc29e43b2fc873bb99b93f5a.bindTooltip(
+                `<div>
+                     Marte
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_151a09bac0eca01704a9b184f95ecf76 = L.circleMarker(
+                [13.167192361044803, 12.624641717024637],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.304600577751053, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_abe2fb3ff3cd166f6abc5b9b206fc582 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_31d13bf9a41edf5e301abc1408073cfc = $(`<div id="html_31d13bf9a41edf5e301abc1408073cfc" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Mobbar<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 59,814<br>         <b>Available Schools:</b> 24<br>         <b>Children per School:</b> 2492.2         </div>`)[0];
+                popup_abe2fb3ff3cd166f6abc5b9b206fc582.setContent(html_31d13bf9a41edf5e301abc1408073cfc);
+            
+        
+
+        circle_marker_151a09bac0eca01704a9b184f95ecf76.bindPopup(popup_abe2fb3ff3cd166f6abc5b9b206fc582)
+        ;
+
+        
+    
+    
+            circle_marker_151a09bac0eca01704a9b184f95ecf76.bindTooltip(
+                `<div>
+                     Mobbar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_8094a8c35389542c2b95ab4ab8830787 = L.circleMarker(
+                [12.532156927441022, 13.570600095088057],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.820521132026242, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_bd7eb2d382c7ffeed6822c1f51cfa025 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_31c5d54177bc3505a158e64bc36902ac = $(`<div id="html_31c5d54177bc3505a158e64bc36902ac" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Monguno<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 56,315<br>         <b>Available Schools:</b> 42<br>         <b>Children per School:</b> 1340.8         </div>`)[0];
+                popup_bd7eb2d382c7ffeed6822c1f51cfa025.setContent(html_31c5d54177bc3505a158e64bc36902ac);
+            
+        
+
+        circle_marker_8094a8c35389542c2b95ab4ab8830787.bindPopup(popup_bd7eb2d382c7ffeed6822c1f51cfa025)
+        ;
+
+        
+    
+    
+            circle_marker_8094a8c35389542c2b95ab4ab8830787.bindTooltip(
+                `<div>
+                     Monguno
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bd7f512212f781e7a99d249cc700b1db = L.circleMarker(
+                [12.353512081050983, 14.163871030683676],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.216277814403316, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_8e9bf1207a5a90b20455a677636b9e1e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5ea7eee403817ed2909c7814b20ae74f = $(`<div id="html_5ea7eee403817ed2909c7814b20ae74f" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Ngala<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 121,274<br>         <b>Available Schools:</b> 36<br>         <b>Children per School:</b> 3368.7         </div>`)[0];
+                popup_8e9bf1207a5a90b20455a677636b9e1e.setContent(html_5ea7eee403817ed2909c7814b20ae74f);
+            
+        
+
+        circle_marker_bd7f512212f781e7a99d249cc700b1db.bindPopup(popup_8e9bf1207a5a90b20455a677636b9e1e)
+        ;
+
+        
+    
+    
+            circle_marker_bd7f512212f781e7a99d249cc700b1db.bindTooltip(
+                `<div>
+                     Ngala
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5a5e9beeaf01597f87d74eab712e0bea = L.circleMarker(
+                [12.437283265989823, 13.2236629314092],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.028861123407411, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_72a3192dc1ae1f91d335e86f5271c6e9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_469627b9ebc33ab0caadc78b8cc5a3ad = $(`<div id="html_469627b9ebc33ab0caadc78b8cc5a3ad" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Nganzai<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 50,820<br>         <b>Available Schools:</b> 25<br>         <b>Children per School:</b> 2032.8         </div>`)[0];
+                popup_72a3192dc1ae1f91d335e86f5271c6e9.setContent(html_469627b9ebc33ab0caadc78b8cc5a3ad);
+            
+        
+
+        circle_marker_5a5e9beeaf01597f87d74eab712e0bea.bindPopup(popup_72a3192dc1ae1f91d335e86f5271c6e9)
+        ;
+
+        
+    
+    
+            circle_marker_5a5e9beeaf01597f87d74eab712e0bea.bindTooltip(
+                `<div>
+                     Nganzai
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_acc6a801ca6cc0423b46a0107f865f61 = L.circleMarker(
+                [10.181971235510263, 11.986502627535327],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.173075568988056, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_6592576f13797d6f9dfe225012364172 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_534b640be259271312232565780854a6 = $(`<div id="html_534b640be259271312232565780854a6" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Shani<br>         <b>State:</b> Borno<br>         <b>Est. School Age Pop:</b> 51,800<br>         <b>Available Schools:</b> 81<br>         <b>Children per School:</b> 639.5         </div>`)[0];
+                popup_6592576f13797d6f9dfe225012364172.setContent(html_534b640be259271312232565780854a6);
+            
+        
+
+        circle_marker_acc6a801ca6cc0423b46a0107f865f61.bindPopup(popup_6592576f13797d6f9dfe225012364172)
+        ;
+
+        
+    
+    
+            circle_marker_acc6a801ca6cc0423b46a0107f865f61.bindTooltip(
+                `<div>
+                     Shani
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_16a48b39794d45ce3b852416c8e35de2 = L.circleMarker(
+                [12.812616036212486, 10.901835621995543],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.490838572415022, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_f160cb3d05214035c4cdd1a2623ee71b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_80ffbc957a51b8292ee8fcd3791e40c8 = $(`<div id="html_80ffbc957a51b8292ee8fcd3791e40c8" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Bade<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 76,930<br>         <b>Available Schools:</b> 57<br>         <b>Children per School:</b> 1349.6         </div>`)[0];
+                popup_f160cb3d05214035c4cdd1a2623ee71b.setContent(html_80ffbc957a51b8292ee8fcd3791e40c8);
+            
+        
+
+        circle_marker_16a48b39794d45ce3b852416c8e35de2.bindPopup(popup_f160cb3d05214035c4cdd1a2623ee71b)
+        ;
+
+        
+    
+    
+            circle_marker_16a48b39794d45ce3b852416c8e35de2.bindTooltip(
+                `<div>
+                     Bade
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_991f523c8d703993064a5ab4fe51e94f = L.circleMarker(
+                [12.77717571034456, 11.357747073132005],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.380747507024484, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_09aeda7f7f47e48552bc9a47f4f2a8c6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a8fa13e576bf8f9119b63e83e126838c = $(`<div id="html_a8fa13e576bf8f9119b63e83e126838c" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Bursari<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 60,374<br>         <b>Available Schools:</b> 59<br>         <b>Children per School:</b> 1023.3         </div>`)[0];
+                popup_09aeda7f7f47e48552bc9a47f4f2a8c6.setContent(html_a8fa13e576bf8f9119b63e83e126838c);
+            
+        
+
+        circle_marker_991f523c8d703993064a5ab4fe51e94f.bindPopup(popup_09aeda7f7f47e48552bc9a47f4f2a8c6)
+        ;
+
+        
+    
+    
+            circle_marker_991f523c8d703993064a5ab4fe51e94f.bindTooltip(
+                `<div>
+                     Bursari
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5fb1ee9351f4f77c291ee14288c3f097 = L.circleMarker(
+                [11.805154148492832, 12.009376799980364],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.646197838043536, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_277b10233e0b27292810bef655e97c1d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a32b6fac62095927a1d654d3aed9ec4f = $(`<div id="html_a32b6fac62095927a1d654d3aed9ec4f" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Damaturu<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 48,265<br>         <b>Available Schools:</b> 25<br>         <b>Children per School:</b> 1930.6         </div>`)[0];
+                popup_277b10233e0b27292810bef655e97c1d.setContent(html_a32b6fac62095927a1d654d3aed9ec4f);
+            
+        
+
+        circle_marker_5fb1ee9351f4f77c291ee14288c3f097.bindPopup(popup_277b10233e0b27292810bef655e97c1d)
+        ;
+
+        
+    
+    
+            circle_marker_5fb1ee9351f4f77c291ee14288c3f097.bindTooltip(
+                `<div>
+                     Damaturu
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f6706af2007f4aa15801284e51049f45 = L.circleMarker(
+                [11.342623366332358, 11.192202892936399],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.287822299126937, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_f599849df01dfb1d765697b45eda94aa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_853b0fa85d50a6534c6a6a8978e1a9fb = $(`<div id="html_853b0fa85d50a6534c6a6a8978e1a9fb" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Fika<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 75,250<br>         <b>Available Schools:</b> 95<br>         <b>Children per School:</b> 792.1         </div>`)[0];
+                popup_f599849df01dfb1d765697b45eda94aa.setContent(html_853b0fa85d50a6534c6a6a8978e1a9fb);
+            
+        
+
+        circle_marker_f6706af2007f4aa15801284e51049f45.bindPopup(popup_f599849df01dfb1d765697b45eda94aa)
+        ;
+
+        
+    
+    
+            circle_marker_f6706af2007f4aa15801284e51049f45.bindTooltip(
+                `<div>
+                     Fika
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f8a11c116cd298075a63a6175d4fdf2e = L.circleMarker(
+                [11.738008013158781, 11.419579743363471],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.173925410625206, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_5b0feee7971f201f6f7ce0f0f175f035 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b76b221c34231f0855b70d3a2f0f4b73 = $(`<div id="html_b76b221c34231f0855b70d3a2f0f4b73" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Fune<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 166,145<br>         <b>Available Schools:</b> 115<br>         <b>Children per School:</b> 1444.7         </div>`)[0];
+                popup_5b0feee7971f201f6f7ce0f0f175f035.setContent(html_b76b221c34231f0855b70d3a2f0f4b73);
+            
+        
+
+        circle_marker_f8a11c116cd298075a63a6175d4fdf2e.bindPopup(popup_5b0feee7971f201f6f7ce0f0f175f035)
+        ;
+
+        
+    
+    
+            circle_marker_f8a11c116cd298075a63a6175d4fdf2e.bindTooltip(
+                `<div>
+                     Fune
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_601974731c188f2c1413eb6e3f468841 = L.circleMarker(
+                [12.764763754787548, 11.972783616086582],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.518082783807316, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_59d1836e0ca72ce0cc8116e9fde3886d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_81d1221517b2e38432f098fab62642f3 = $(`<div id="html_81d1221517b2e38432f098fab62642f3" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Geidam<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 85,715<br>         <b>Available Schools:</b> 29<br>         <b>Children per School:</b> 2955.7         </div>`)[0];
+                popup_59d1836e0ca72ce0cc8116e9fde3886d.setContent(html_81d1221517b2e38432f098fab62642f3);
+            
+        
+
+        circle_marker_601974731c188f2c1413eb6e3f468841.bindPopup(popup_59d1836e0ca72ce0cc8116e9fde3886d)
+        ;
+
+        
+    
+    
+            circle_marker_601974731c188f2c1413eb6e3f468841.bindTooltip(
+                `<div>
+                     Geidam
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d7d7446861b530aab14b9f691faf1724 = L.circleMarker(
+                [11.360327077398626, 12.004633323739524],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.818217893181373, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_77c8639f10a11c950fd2b2da67947845 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_76d462c3082ed49cdff6aa37feeffbe3 = $(`<div id="html_76d462c3082ed49cdff6aa37feeffbe3" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Gujba<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 71,435<br>         <b>Available Schools:</b> 59<br>         <b>Children per School:</b> 1210.8         </div>`)[0];
+                popup_77c8639f10a11c950fd2b2da67947845.setContent(html_76d462c3082ed49cdff6aa37feeffbe3);
+            
+        
+
+        circle_marker_d7d7446861b530aab14b9f691faf1724.bindPopup(popup_77c8639f10a11c950fd2b2da67947845)
+        ;
+
+        
+    
+    
+            circle_marker_d7d7446861b530aab14b9f691faf1724.bindTooltip(
+                `<div>
+                     Gujba
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_96dedd2e4cf7d3fb7bdf94b0627e531d = L.circleMarker(
+                [10.958144732613293, 11.713126087164849],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 15.90876767348398, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_59c2c857a5bf22af83b91aefd196434a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c4b77bc62f2e1f7c647019905ddd8cb2 = $(`<div id="html_c4b77bc62f2e1f7c647019905ddd8cb2" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Gulani<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 56,945<br>         <b>Available Schools:</b> 54<br>         <b>Children per School:</b> 1054.5         </div>`)[0];
+                popup_59c2c857a5bf22af83b91aefd196434a.setContent(html_c4b77bc62f2e1f7c647019905ddd8cb2);
+            
+        
+
+        circle_marker_96dedd2e4cf7d3fb7bdf94b0627e531d.bindPopup(popup_59c2c857a5bf22af83b91aefd196434a)
+        ;
+
+        
+    
+    
+            circle_marker_96dedd2e4cf7d3fb7bdf94b0627e531d.bindTooltip(
+                `<div>
+                     Gulani
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d35f2e35b7e5c62c890a984bfb34684a = L.circleMarker(
+                [12.538369788223397, 10.866730795976878],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.844309826688445, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_4211221f512be7344ac8fdc6fc6b803d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e87608703c988a5b44cca2cfdaa2f845 = $(`<div id="html_e87608703c988a5b44cca2cfdaa2f845" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Jakusko<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 127,924<br>         <b>Available Schools:</b> 83<br>         <b>Children per School:</b> 1541.3         </div>`)[0];
+                popup_4211221f512be7344ac8fdc6fc6b803d.setContent(html_e87608703c988a5b44cca2cfdaa2f845);
+            
+        
+
+        circle_marker_d35f2e35b7e5c62c890a984bfb34684a.bindPopup(popup_4211221f512be7344ac8fdc6fc6b803d)
+        ;
+
+        
+    
+    
+            circle_marker_d35f2e35b7e5c62c890a984bfb34684a.bindTooltip(
+                `<div>
+                     Jakusko
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9e9543fbb8c8cf7a52b9c80a4be48099 = L.circleMarker(
+                [12.932069093720184, 10.808028600193026],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.064315180617637, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_6deb8435908b6ddbf45b3bdfab7e94b5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cf4cdbd70475464a235c624de3c5355d = $(`<div id="html_cf4cdbd70475464a235c624de3c5355d" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Karasuwa<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 58,064<br>         <b>Available Schools:</b> 51<br>         <b>Children per School:</b> 1138.5         </div>`)[0];
+                popup_6deb8435908b6ddbf45b3bdfab7e94b5.setContent(html_cf4cdbd70475464a235c624de3c5355d);
+            
+        
+
+        circle_marker_9e9543fbb8c8cf7a52b9c80a4be48099.bindPopup(popup_6deb8435908b6ddbf45b3bdfab7e94b5)
+        ;
+
+        
+    
+    
+            circle_marker_9e9543fbb8c8cf7a52b9c80a4be48099.bindTooltip(
+                `<div>
+                     Karasuwa
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_69f19e32d343a4b31cc02c5aafe1c16b = L.circleMarker(
+                [13.022338751769313, 9.966504515603011],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.213835506415574, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_499d3ef0b430fe3dd143855aad2ae0a3 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_14073d2515b5717f9bb62809128de2c6 = $(`<div id="html_14073d2515b5717f9bb62809128de2c6" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Machina<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 33,565<br>         <b>Available Schools:</b> 33<br>         <b>Children per School:</b> 1017.1         </div>`)[0];
+                popup_499d3ef0b430fe3dd143855aad2ae0a3.setContent(html_14073d2515b5717f9bb62809128de2c6);
+            
+        
+
+        circle_marker_69f19e32d343a4b31cc02c5aafe1c16b.bindPopup(popup_499d3ef0b430fe3dd143855aad2ae0a3)
+        ;
+
+        
+    
+    
+            circle_marker_69f19e32d343a4b31cc02c5aafe1c16b.bindTooltip(
+                `<div>
+                     Machina
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_eb2fe0b453f5c9b07d6862ed5fe4c188 = L.circleMarker(
+                [11.79222376147399, 11.018421134860422],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 14.63025783930155, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_803a71130d7f84dccf4dd138c209dfe0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bfafbe7b219e220fe55e8fbc2f77f1d1 = $(`<div id="html_bfafbe7b219e220fe55e8fbc2f77f1d1" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Nangere<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 48,160<br>         <b>Available Schools:</b> 69<br>         <b>Children per School:</b> 698.0         </div>`)[0];
+                popup_803a71130d7f84dccf4dd138c209dfe0.setContent(html_bfafbe7b219e220fe55e8fbc2f77f1d1);
+            
+        
+
+        circle_marker_eb2fe0b453f5c9b07d6862ed5fe4c188.bindPopup(popup_803a71130d7f84dccf4dd138c209dfe0)
+        ;
+
+        
+    
+    
+            circle_marker_eb2fe0b453f5c9b07d6862ed5fe4c188.bindTooltip(
+                `<div>
+                     Nangere
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_63685e535f89c87b42865f0d8ce331f5 = L.circleMarker(
+                [12.90852045982707, 10.430933577323533],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.19664322508264, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_d6ea9bd489be62d566e02e8ad1964547 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0a3888c1217fc55779024d47ce197086 = $(`<div id="html_0a3888c1217fc55779024d47ce197086" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Nguru<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 82,915<br>         <b>Available Schools:</b> 55<br>         <b>Children per School:</b> 1507.5         </div>`)[0];
+                popup_d6ea9bd489be62d566e02e8ad1964547.setContent(html_0a3888c1217fc55779024d47ce197086);
+            
+        
+
+        circle_marker_63685e535f89c87b42865f0d8ce331f5.bindPopup(popup_d6ea9bd489be62d566e02e8ad1964547)
+        ;
+
+        
+    
+    
+            circle_marker_63685e535f89c87b42865f0d8ce331f5.bindTooltip(
+                `<div>
+                     Nguru
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_288381b96c73d1ffbaf6098920cc7143 = L.circleMarker(
+                [11.688119246616079, 11.108966050744938],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.384022079252077, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_853d9efb3539f11368a7a03ee8a37087 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a2e27dc29425e666929c0481875aec8a = $(`<div id="html_a2e27dc29425e666929c0481875aec8a" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Potiskum<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 112,735<br>         <b>Available Schools:</b> 58<br>         <b>Children per School:</b> 1943.7         </div>`)[0];
+                popup_853d9efb3539f11368a7a03ee8a37087.setContent(html_a2e27dc29425e666929c0481875aec8a);
+            
+        
+
+        circle_marker_288381b96c73d1ffbaf6098920cc7143.bindPopup(popup_853d9efb3539f11368a7a03ee8a37087)
+        ;
+
+        
+    
+    
+            circle_marker_288381b96c73d1ffbaf6098920cc7143.bindTooltip(
+                `<div>
+                     Potiskum
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f1956a636ad05414bf348e4335485981 = L.circleMarker(
+                [13.08334135977783, 11.79103636688894],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.549928774784245, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_ecef7b9ddb5f49a96eb81d2aa0caa365 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f22852a0bc212405f53cd29a364c5cb8 = $(`<div id="html_f22852a0bc212405f53cd29a364c5cb8" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Yunusari<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 69,300<br>         <b>Available Schools:</b> 45<br>         <b>Children per School:</b> 1540.0         </div>`)[0];
+                popup_ecef7b9ddb5f49a96eb81d2aa0caa365.setContent(html_f22852a0bc212405f53cd29a364c5cb8);
+            
+        
+
+        circle_marker_f1956a636ad05414bf348e4335485981.bindPopup(popup_ecef7b9ddb5f49a96eb81d2aa0caa365)
+        ;
+
+        
+    
+    
+            circle_marker_f1956a636ad05414bf348e4335485981.bindTooltip(
+                `<div>
+                     Yunusari
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_838b7ae8249f0af0b075eca0a1a0175f = L.circleMarker(
+                [13.129064501492094, 10.866364012399474],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.6, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 16.456542096618527, "stroke": true, "weight": 1}
+            ).addTo(map_c09524fe27676068e9fdca4f64a4ff70);
+        
+    
+        var popup_e6d350cd20931a3f71c7f20a55a9c8c9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_98d95a0f86dc26f3e34ec9238584d011 = $(`<div id="html_98d95a0f86dc26f3e34ec9238584d011" style="width: 100.0%; height: 100.0%;">         <b>LGA:</b> Yusufari<br>         <b>State:</b> Yobe<br>         <b>Est. School Age Pop:</b> 60,934<br>         <b>Available Schools:</b> 29<br>         <b>Children per School:</b> 2101.2         </div>`)[0];
+                popup_e6d350cd20931a3f71c7f20a55a9c8c9.setContent(html_98d95a0f86dc26f3e34ec9238584d011);
+            
+        
+
+        circle_marker_838b7ae8249f0af0b075eca0a1a0175f.bindPopup(popup_e6d350cd20931a3f71c7f20a55a9c8c9)
+        ;
+
+        
+    
+    
+            circle_marker_838b7ae8249f0af0b075eca0a1a0175f.bindTooltip(
+                `<div>
+                     Yusufari
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

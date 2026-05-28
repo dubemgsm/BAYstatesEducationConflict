@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_726632330f13f93a78dd41b95e94a3e3 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+     <div style="position: fixed; 
+                 bottom: 50px; left: 50px; width: 220px; height: 130px; 
+                 background-color: white; z-index:9999; padding: 10px; border:1px solid #ccc;">
+     <b>Students per school (est)</b><br>
+     <i style="background:#2ca25f;width:12px;height:12px;display:inline-block;margin-right:6px;"></i> &lt;200<br>
+     <i style="background:#fee08b;width:12px;height:12px;display:inline-block;margin-right:6px;"></i> 200-499<br>
+     <i style="background:#fdae61;width:12px;height:12px;display:inline-block;margin-right:6px;"></i> 500-999<br>
+     <i style="background:#d73027;width:12px;height:12px;display:inline-block;margin-right:6px;"></i> 1000+<br>
+     </div>
+     
+    
+            <div class="folium-map" id="map_726632330f13f93a78dd41b95e94a3e3" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_726632330f13f93a78dd41b95e94a3e3 = L.map(
+                "map_726632330f13f93a78dd41b95e94a3e3",
+                {
+                    center: [11.208042392587835, 12.392142159852595],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_4275a7dd341be585ddd3dba7abc7a90f = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_4275a7dd341be585ddd3dba7abc7a90f.addTo(map_726632330f13f93a78dd41b95e94a3e3);
+        
+    
+            var marker_cluster_a675e7feac945c81574924a9d7bd8287 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_348aa857bfee4d73855dd59e50c2c374 = L.circleMarker(
+                [9.406058789156672, 12.008435397590409],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 42.65229618017538, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_7eac3f7609ed51af42011efdda4df394 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6a1898898d2401fb65df0aa7c584f3b0 = $(`<div id="html_6a1898898d2401fb65df0aa7c584f3b0" style="width: 100.0%; height: 100.0%;"><b>Demsa, Adamawa</b><br/>Estimated school-age pop (5-17): 96,285<br/>Available schools (dataset): 166<br/>Students per school (est): 580<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_7eac3f7609ed51af42011efdda4df394.setContent(html_6a1898898d2401fb65df0aa7c584f3b0);
+            
+        
+
+        circle_marker_348aa857bfee4d73855dd59e50c2c374.bindPopup(popup_7eac3f7609ed51af42011efdda4df394)
+        ;
+
+        
+    
+    
+            var circle_marker_9ddde82a31064758dacbfae3b834b94a = L.circleMarker(
+                [9.207551116982257, 12.625346585653293],
+                {"bubblingMouseEvents": true, "color": "#fee08b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fee08b", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 49.79301256742124, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_0131d2c7cb0c0499ee8c9ab703ebe37d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a500b6dffdcf9d3416e7f8d511b1289d = $(`<div id="html_a500b6dffdcf9d3416e7f8d511b1289d" style="width: 100.0%; height: 100.0%;"><b>Fufore, Adamawa</b><br/>Estimated school-age pop (5-17): 113,050<br/>Available schools (dataset): 233<br/>Students per school (est): 485<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_0131d2c7cb0c0499ee8c9ab703ebe37d.setContent(html_a500b6dffdcf9d3416e7f8d511b1289d);
+            
+        
+
+        circle_marker_9ddde82a31064758dacbfae3b834b94a.bindPopup(popup_0131d2c7cb0c0499ee8c9ab703ebe37d)
+        ;
+
+        
+    
+    
+            var circle_marker_81f77f4f8ae1dd06b4b4e8f8c73386ca = L.circleMarker(
+                [8.458328948098947, 12.04204432012247],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 41.46998799039039, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_a572c578bb29dcc86c1ae779de3dbfb5 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b4e925ac3e65f56aef01d76040c78c9f = $(`<div id="html_b4e925ac3e65f56aef01d76040c78c9f" style="width: 100.0%; height: 100.0%;"><b>Ganye, Adamawa</b><br/>Estimated school-age pop (5-17): 91,735<br/>Available schools (dataset): 156<br/>Students per school (est): 588<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_a572c578bb29dcc86c1ae779de3dbfb5.setContent(html_b4e925ac3e65f56aef01d76040c78c9f);
+            
+        
+
+        circle_marker_81f77f4f8ae1dd06b4b4e8f8c73386ca.bindPopup(popup_a572c578bb29dcc86c1ae779de3dbfb5)
+        ;
+
+        
+    
+    
+            var circle_marker_488280b7cbe51be49921ea2c91d076ec = L.circleMarker(
+                [9.40234107216221, 12.482215979797342],
+                {"bubblingMouseEvents": true, "color": "#fee08b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fee08b", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 40.49657518178932, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_e791d4c1fc0246c3d3b43b9bb369bb26 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_61d7e4a134ff4527b4979c6cbb25a9a3 = $(`<div id="html_61d7e4a134ff4527b4979c6cbb25a9a3" style="width: 100.0%; height: 100.0%;"><b>Girei, Adamawa</b><br/>Estimated school-age pop (5-17): 70,070<br/>Available schools (dataset): 148<br/>Students per school (est): 473<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_e791d4c1fc0246c3d3b43b9bb369bb26.setContent(html_61d7e4a134ff4527b4979c6cbb25a9a3);
+            
+        
+
+        circle_marker_488280b7cbe51be49921ea2c91d076ec.bindPopup(popup_e791d4c1fc0246c3d3b43b9bb369bb26)
+        ;
+
+        
+    
+    
+            var circle_marker_2275183247d1ce9af5d2098f7422719d = L.circleMarker(
+                [10.18002445845719, 12.504835902914333],
+                {"bubblingMouseEvents": true, "color": "#fee08b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fee08b", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 43.68626966596886, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_400ae0084c899dd839fd029d93c17eab = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0ded0ae1ac275d3ae84f8ffc2d48b3d0 = $(`<div id="html_0ded0ae1ac275d3ae84f8ffc2d48b3d0" style="width: 100.0%; height: 100.0%;"><b>Gombi, Adamawa</b><br/>Estimated school-age pop (5-17): 79,765<br/>Available schools (dataset): 175<br/>Students per school (est): 456<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_400ae0084c899dd839fd029d93c17eab.setContent(html_0ded0ae1ac275d3ae84f8ffc2d48b3d0);
+            
+        
+
+        circle_marker_2275183247d1ce9af5d2098f7422719d.bindPopup(popup_400ae0084c899dd839fd029d93c17eab)
+        ;
+
+        
+    
+    
+            var circle_marker_5d0c09aaa83a95484dfff86cb707a025 = L.circleMarker(
+                [9.843516062057928, 11.903294770779764],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 41.82856063875548, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_9988cc567cf56f805e340f6e9a7ccc0d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_18507d66f95ee91069549cfa1bb78a3f = $(`<div id="html_18507d66f95ee91069549cfa1bb78a3f" style="width: 100.0%; height: 100.0%;"><b>Guyuk, Adamawa</b><br/>Estimated school-age pop (5-17): 95,270<br/>Available schools (dataset): 159<br/>Students per school (est): 599<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_9988cc567cf56f805e340f6e9a7ccc0d.setContent(html_18507d66f95ee91069549cfa1bb78a3f);
+            
+        
+
+        circle_marker_5d0c09aaa83a95484dfff86cb707a025.bindPopup(popup_9988cc567cf56f805e340f6e9a7ccc0d)
+        ;
+
+        
+    
+    
+            var circle_marker_ed63a70abadff4ec70ca178eb79655f3 = L.circleMarker(
+                [10.278086254539668, 12.990611657976483],
+                {"bubblingMouseEvents": true, "color": "#fee08b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fee08b", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50.76537180435969, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_5685ec09cafcea9bc65704aa3704b4f9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eb4641c6df88ac1a2e57b6477dd6af0c = $(`<div id="html_eb4641c6df88ac1a2e57b6477dd6af0c" style="width: 100.0%; height: 100.0%;"><b>Hong, Adamawa</b><br/>Estimated school-age pop (5-17): 91,315<br/>Available schools (dataset): 243<br/>Students per school (est): 376<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_5685ec09cafcea9bc65704aa3704b4f9.setContent(html_eb4641c6df88ac1a2e57b6477dd6af0c);
+            
+        
+
+        circle_marker_ed63a70abadff4ec70ca178eb79655f3.bindPopup(popup_5685ec09cafcea9bc65704aa3704b4f9)
+        ;
+
+        
+    
+    
+            var circle_marker_b7e3d0c9a9963873fc0d00f34c2a148d = L.circleMarker(
+                [8.683041175266434, 12.264704656806444],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 42.65229618017538, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_5d308876bde5382d550d4a4b586c5249 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_add79086e17c391526fcd609e1820030 = $(`<div id="html_add79086e17c391526fcd609e1820030" style="width: 100.0%; height: 100.0%;"><b>Jada, Adamawa</b><br/>Estimated school-age pop (5-17): 90,895<br/>Available schools (dataset): 166<br/>Students per school (est): 548<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_5d308876bde5382d550d4a4b586c5249.setContent(html_add79086e17c391526fcd609e1820030);
+            
+        
+
+        circle_marker_b7e3d0c9a9963873fc0d00f34c2a148d.bindPopup(popup_5d308876bde5382d550d4a4b586c5249)
+        ;
+
+        
+    
+    
+            var circle_marker_1f6ae83ba52bc232ec9647f1d7f5ae35 = L.circleMarker(
+                [9.564053309155803, 11.707838653944403],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 35.464265445104544, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_19aab4419eca1edda0dc50281e759ed8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6e4ddd599afc972120884e586a07548f = $(`<div id="html_6e4ddd599afc972120884e586a07548f" style="width: 100.0%; height: 100.0%;"><b>Lamurde, Adamawa</b><br/>Estimated school-age pop (5-17): 60,059<br/>Available schools (dataset): 110<br/>Students per school (est): 546<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_19aab4419eca1edda0dc50281e759ed8.setContent(html_6e4ddd599afc972120884e586a07548f);
+            
+        
+
+        circle_marker_1f6ae83ba52bc232ec9647f1d7f5ae35.bindPopup(popup_19aab4419eca1edda0dc50281e759ed8)
+        ;
+
+        
+    
+    
+            var circle_marker_335d03073ebae6cb2700ed3af5144864 = L.circleMarker(
+                [10.808027266055088, 13.509829688073436],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 35.32091952673165, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_6988f8eae76b3a37eabd95bb8f90e2df = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c82055f01450992cf5d9f235bddd4d63 = $(`<div id="html_c82055f01450992cf5d9f235bddd4d63" style="width: 100.0%; height: 100.0%;"><b>Madagali, Adamawa</b><br/>Estimated school-age pop (5-17): 72,940<br/>Available schools (dataset): 109<br/>Students per school (est): 669<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_6988f8eae76b3a37eabd95bb8f90e2df.setContent(html_c82055f01450992cf5d9f235bddd4d63);
+            
+        
+
+        circle_marker_335d03073ebae6cb2700ed3af5144864.bindPopup(popup_6988f8eae76b3a37eabd95bb8f90e2df)
+        ;
+
+        
+    
+    
+            var circle_marker_d7d37a060c9dd95b50b1aa766d94bbf5 = L.circleMarker(
+                [9.958614261773345, 13.179168819946737],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 35.032241298365804, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_58321db4c0e73c72326c5f1c94d5911b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_836cb24ad7c9c436e3c95a1dc80ddabc = $(`<div id="html_836cb24ad7c9c436e3c95a1dc80ddabc" style="width: 100.0%; height: 100.0%;"><b>Maiha, Adamawa</b><br/>Estimated school-age pop (5-17): 59,464<br/>Available schools (dataset): 107<br/>Students per school (est): 556<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_58321db4c0e73c72326c5f1c94d5911b.setContent(html_836cb24ad7c9c436e3c95a1dc80ddabc);
+            
+        
+
+        circle_marker_d7d37a060c9dd95b50b1aa766d94bbf5.bindPopup(popup_58321db4c0e73c72326c5f1c94d5911b)
+        ;
+
+        
+    
+    
+            var circle_marker_3f6d790e27b991910a901f1ce11cb622 = L.circleMarker(
+                [9.592097887992981, 12.501568283734292],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_5aa246e30504f9b1c585f72cbe92f628 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8ebce4c34762193ebbf4b0d3a70d2180 = $(`<div id="html_8ebce4c34762193ebbf4b0d3a70d2180" style="width: 100.0%; height: 100.0%;"><b>Mayo Belwa, Adamawa</b><br/>Estimated school-age pop (5-17): 82,460<br/>Available schools (dataset): 0<br/>Students per school (est): N/A<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_5aa246e30504f9b1c585f72cbe92f628.setContent(html_8ebce4c34762193ebbf4b0d3a70d2180);
+            
+        
+
+        circle_marker_3f6d790e27b991910a901f1ce11cb622.bindPopup(popup_5aa246e30504f9b1c585f72cbe92f628)
+        ;
+
+        
+    
+    
+            var circle_marker_c331b810b0edc98113d5f554f04a9af8 = L.circleMarker(
+                [10.596350166666705, 13.391622950000038],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 36.863353450309965, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_94ed6e2d8b3712c54d49b8235b7a33a7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_63259085b18fe4d552bfd5ac0b7737b7 = $(`<div id="html_63259085b18fe4d552bfd5ac0b7737b7" style="width: 100.0%; height: 100.0%;"><b>Michika, Adamawa</b><br/>Estimated school-age pop (5-17): 83,790<br/>Available schools (dataset): 120<br/>Students per school (est): 698<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_94ed6e2d8b3712c54d49b8235b7a33a7.setContent(html_63259085b18fe4d552bfd5ac0b7737b7);
+            
+        
+
+        circle_marker_c331b810b0edc98113d5f554f04a9af8.bindPopup(popup_94ed6e2d8b3712c54d49b8235b7a33a7)
+        ;
+
+        
+    
+    
+            var circle_marker_9a051be080777c6c039c7ebab06d240f = L.circleMarker(
+                [10.340633846221184, 13.313024214277425],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 40.24913792078372, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_f7172e10a7d88dbdb85c3aed36a593d1 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6d14355f398599c759aa21e4d245a1d2 = $(`<div id="html_6d14355f398599c759aa21e4d245a1d2" style="width: 100.0%; height: 100.0%;"><b>Mubi North, Adamawa</b><br/>Estimated school-age pop (5-17): 81,760<br/>Available schools (dataset): 146<br/>Students per school (est): 560<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_f7172e10a7d88dbdb85c3aed36a593d1.setContent(html_6d14355f398599c759aa21e4d245a1d2);
+            
+        
+
+        circle_marker_9a051be080777c6c039c7ebab06d240f.bindPopup(popup_f7172e10a7d88dbdb85c3aed36a593d1)
+        ;
+
+        
+    
+    
+            var circle_marker_2cfedd846ec6b8bfb91b70bb97376b39 = L.circleMarker(
+                [10.212124304474754, 13.290402379920277],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 37.0, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_ca6374936516954097d47d0ad049de4e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a227c4f8639414a3e34b89dbd3381f59 = $(`<div id="html_a227c4f8639414a3e34b89dbd3381f59" style="width: 100.0%; height: 100.0%;"><b>Mubi South, Adamawa</b><br/>Estimated school-age pop (5-17): 70,140<br/>Available schools (dataset): 121<br/>Students per school (est): 580<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_ca6374936516954097d47d0ad049de4e.setContent(html_a227c4f8639414a3e34b89dbd3381f59);
+            
+        
+
+        circle_marker_2cfedd846ec6b8bfb91b70bb97376b39.bindPopup(popup_ca6374936516954097d47d0ad049de4e)
+        ;
+
+        
+    
+    
+            var circle_marker_32d1c0c2c5a95d5492b4eaa65336191e = L.circleMarker(
+                [9.457741926136228, 11.88411849301956],
+                {"bubblingMouseEvents": true, "color": "#fee08b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fee08b", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 35.032241298365804, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_945f2161533565313a5f105f59a4b072 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d3caf66df589de639037584b47c1331a = $(`<div id="html_d3caf66df589de639037584b47c1331a" style="width: 100.0%; height: 100.0%;"><b>Numan, Adamawa</b><br/>Estimated school-age pop (5-17): 49,420<br/>Available schools (dataset): 107<br/>Students per school (est): 462<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_945f2161533565313a5f105f59a4b072.setContent(html_d3caf66df589de639037584b47c1331a);
+            
+        
+
+        circle_marker_32d1c0c2c5a95d5492b4eaa65336191e.bindPopup(popup_945f2161533565313a5f105f59a4b072)
+        ;
+
+        
+    
+    
+            var circle_marker_629a9dfc147b9f5ae92e6a5efa614e0a = L.circleMarker(
+                [9.86072814102569, 12.071252512820559],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30.495282598983543, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_d810129198261596c449d5e8cd13cc11 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_89da7f3e47d94a73bb708c3a4855790b = $(`<div id="html_89da7f3e47d94a73bb708c3a4855790b" style="width: 100.0%; height: 100.0%;"><b>Shelleng, Adamawa</b><br/>Estimated school-age pop (5-17): 80,150<br/>Available schools (dataset): 78<br/>Students per school (est): 1,028<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_d810129198261596c449d5e8cd13cc11.setContent(html_89da7f3e47d94a73bb708c3a4855790b);
+            
+        
+
+        circle_marker_629a9dfc147b9f5ae92e6a5efa614e0a.bindPopup(popup_d810129198261596c449d5e8cd13cc11)
+        ;
+
+        
+    
+    
+            var circle_marker_619765e45ac267a546506bb016c6dd34 = L.circleMarker(
+                [9.78542524409567, 12.507648153754872],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 43.45883931389771, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_f1dd5a7eeded61584028f89945ddf65b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f2b7711c32db407461ecb91ea525b0b6 = $(`<div id="html_f2b7711c32db407461ecb91ea525b0b6" style="width: 100.0%; height: 100.0%;"><b>Song, Adamawa</b><br/>Estimated school-age pop (5-17): 105,350<br/>Available schools (dataset): 173<br/>Students per school (est): 609<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_f1dd5a7eeded61584028f89945ddf65b.setContent(html_f2b7711c32db407461ecb91ea525b0b6);
+            
+        
+
+        circle_marker_619765e45ac267a546506bb016c6dd34.bindPopup(popup_f1dd5a7eeded61584028f89945ddf65b)
+        ;
+
+        
+    
+    
+            var circle_marker_6a3f1256693988917156da5dd1ca85f1 = L.circleMarker(
+                [8.111035460526361, 11.901919710526363],
+                {"bubblingMouseEvents": true, "color": "#fee08b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fee08b", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30.153393661244046, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_0143eb559f69386f6116a7c755603a1c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_90de2e775028090de2c5acac6995de9a = $(`<div id="html_90de2e775028090de2c5acac6995de9a" style="width: 100.0%; height: 100.0%;"><b>Toungo, Adamawa</b><br/>Estimated school-age pop (5-17): 28,175<br/>Available schools (dataset): 76<br/>Students per school (est): 371<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_0143eb559f69386f6116a7c755603a1c.setContent(html_90de2e775028090de2c5acac6995de9a);
+            
+        
+
+        circle_marker_6a3f1256693988917156da5dd1ca85f1.bindPopup(popup_0143eb559f69386f6116a7c755603a1c)
+        ;
+
+        
+    
+    
+            var circle_marker_9b39c06aee23374744b0bdfe902c9615 = L.circleMarker(
+                [9.268977299059896, 12.444264546517147],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 42.41874542459709, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_30be05e7d5604ca6bec5478d55e5dfc2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6ee9f8e6620a9fe7b203aedf1b6026fa = $(`<div id="html_6ee9f8e6620a9fe7b203aedf1b6026fa" style="width: 100.0%; height: 100.0%;"><b>Yola North, Adamawa</b><br/>Estimated school-age pop (5-17): 107,800<br/>Available schools (dataset): 164<br/>Students per school (est): 657<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_30be05e7d5604ca6bec5478d55e5dfc2.setContent(html_6ee9f8e6620a9fe7b203aedf1b6026fa);
+            
+        
+
+        circle_marker_9b39c06aee23374744b0bdfe902c9615.bindPopup(popup_30be05e7d5604ca6bec5478d55e5dfc2)
+        ;
+
+        
+    
+    
+            var circle_marker_e89a249084aa272c22dc27e592579b3d = L.circleMarker(
+                [9.227217908988589, 12.426615007541722],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 45.13392760240626, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_bc8160007d9e581e1d58e8bc2bf3109e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_28853fb6557c728475e76f8f89256f1c = $(`<div id="html_28853fb6557c728475e76f8f89256f1c" style="width: 100.0%; height: 100.0%;"><b>Yola South, Adamawa</b><br/>Estimated school-age pop (5-17): 106,050<br/>Available schools (dataset): 188<br/>Students per school (est): 564<br/>Out-of-school rate: 0.217<br/></div>`)[0];
+                popup_bc8160007d9e581e1d58e8bc2bf3109e.setContent(html_28853fb6557c728475e76f8f89256f1c);
+            
+        
+
+        circle_marker_e89a249084aa272c22dc27e592579b3d.bindPopup(popup_bc8160007d9e581e1d58e8bc2bf3109e)
+        ;
+
+        
+    
+    
+            var circle_marker_3befcfc1e2b46fba00c9724a42c445d1 = L.circleMarker(
+                [13.582265206644536, 13.2594545459369],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.0, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_5a5076d138a5917e497e67873fe4f7c7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4f4af27de93dd0331bc793a02f3084dc = $(`<div id="html_4f4af27de93dd0331bc793a02f3084dc" style="width: 100.0%; height: 100.0%;"><b>Abadam, Borno</b><br/>Estimated school-age pop (5-17): 51,310<br/>Available schools (dataset): 9<br/>Students per school (est): 5,701<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_5a5076d138a5917e497e67873fe4f7c7.setContent(html_4f4af27de93dd0331bc793a02f3084dc);
+            
+        
+
+        circle_marker_3befcfc1e2b46fba00c9724a42c445d1.bindPopup(popup_5a5076d138a5917e497e67873fe4f7c7)
+        ;
+
+        
+    
+    
+            var circle_marker_689297869e3e762e5864b041ac1792a2 = L.circleMarker(
+                [11.384049119219453, 12.995694116022175],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_a981f085ea8e75b5297a8a8344c4b02a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3c147d7541fed1d569473dd6d285e4fe = $(`<div id="html_3c147d7541fed1d569473dd6d285e4fe" style="width: 100.0%; height: 100.0%;"><b>Askira Uba, Borno</b><br/>Estimated school-age pop (5-17): 73,500<br/>Available schools (dataset): 0<br/>Students per school (est): N/A<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_a981f085ea8e75b5297a8a8344c4b02a.setContent(html_3c147d7541fed1d569473dd6d285e4fe);
+            
+        
+
+        circle_marker_689297869e3e762e5864b041ac1792a2.bindPopup(popup_a981f085ea8e75b5297a8a8344c4b02a)
+        ;
+
+        
+    
+    
+            var circle_marker_f340fa7fe02076e144a4e18cad30da40 = L.circleMarker(
+                [11.47890669898487, 13.864880177791987],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 32.14249455894058, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_3a08200fe8bcb0468eec9d84240e8d29 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8a32a472da46fb731a4ef64002c03de8 = $(`<div id="html_8a32a472da46fb731a4ef64002c03de8" style="width: 100.0%; height: 100.0%;"><b>Bama, Borno</b><br/>Estimated school-age pop (5-17): 138,530<br/>Available schools (dataset): 88<br/>Students per school (est): 1,574<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_3a08200fe8bcb0468eec9d84240e8d29.setContent(html_8a32a472da46fb731a4ef64002c03de8);
+            
+        
+
+        circle_marker_f340fa7fe02076e144a4e18cad30da40.bindPopup(popup_3a08200fe8bcb0468eec9d84240e8d29)
+        ;
+
+        
+    
+    
+            var circle_marker_b43aa6403ef8128a5e417847ca59ecee = L.circleMarker(
+                [10.4063954251473, 11.679790680537778],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 26.045407685048602, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_b036ccec3617953f3cf82a5f72b4722d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5f6f4233ac76df614de9529338fa1dd4 = $(`<div id="html_5f6f4233ac76df614de9529338fa1dd4" style="width: 100.0%; height: 100.0%;"><b>Bayo, Borno</b><br/>Estimated school-age pop (5-17): 40,565<br/>Available schools (dataset): 54<br/>Students per school (est): 751<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_b036ccec3617953f3cf82a5f72b4722d.setContent(html_5f6f4233ac76df614de9529338fa1dd4);
+            
+        
+
+        circle_marker_b43aa6403ef8128a5e417847ca59ecee.bindPopup(popup_b036ccec3617953f3cf82a5f72b4722d)
+        ;
+
+        
+    
+    
+            var circle_marker_732f04a9e447e82c54103ddfed9b65bf = L.circleMarker(
+                [10.707696090974897, 12.190157516282397],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 32.14249455894058, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_6487e7847f60d92446a465dab6a81378 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3ee5fa159773fb71e9ba45c7897c9ee1 = $(`<div id="html_3ee5fa159773fb71e9ba45c7897c9ee1" style="width: 100.0%; height: 100.0%;"><b>Biu, Borno</b><br/>Estimated school-age pop (5-17): 90,125<br/>Available schools (dataset): 88<br/>Students per school (est): 1,024<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_6487e7847f60d92446a465dab6a81378.setContent(html_3ee5fa159773fb71e9ba45c7897c9ee1);
+            
+        
+
+        circle_marker_732f04a9e447e82c54103ddfed9b65bf.bindPopup(popup_6487e7847f60d92446a465dab6a81378)
+        ;
+
+        
+    
+    
+            var circle_marker_6b7ee12fdff373f68a75c382e87383a0 = L.circleMarker(
+                [10.835369723579689, 12.850393134117686],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 26.847319317591726, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_38f503dd654690299232907d45337b6e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5d391755f49d8b57a1de68095a20cc8c = $(`<div id="html_5d391755f49d8b57a1de68095a20cc8c" style="width: 100.0%; height: 100.0%;"><b>Chibok, Borno</b><br/>Estimated school-age pop (5-17): 34,020<br/>Available schools (dataset): 58<br/>Students per school (est): 587<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_38f503dd654690299232907d45337b6e.setContent(html_5d391755f49d8b57a1de68095a20cc8c);
+            
+        
+
+        circle_marker_6b7ee12fdff373f68a75c382e87383a0.bindPopup(popup_38f503dd654690299232907d45337b6e)
+        ;
+
+        
+    
+    
+            var circle_marker_455e9c6c9af17b3ec2fb5cc065433083 = L.circleMarker(
+                [11.113597140375708, 12.690969371875918],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 34.740852297878796, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_27bad1655ef95d85f1adc10e31305943 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1134cd421397003705682222c8040596 = $(`<div id="html_1134cd421397003705682222c8040596" style="width: 100.0%; height: 100.0%;"><b>Damboa, Borno</b><br/>Estimated school-age pop (5-17): 119,594<br/>Available schools (dataset): 105<br/>Students per school (est): 1,139<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_27bad1655ef95d85f1adc10e31305943.setContent(html_1134cd421397003705682222c8040596);
+            
+        
+
+        circle_marker_455e9c6c9af17b3ec2fb5cc065433083.bindPopup(popup_27bad1655ef95d85f1adc10e31305943)
+        ;
+
+        
+    
+    
+            var circle_marker_39100e516c94caa35ad57d1e221b1cfa = L.circleMarker(
+                [12.007235636997157, 13.986206924330396],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.24828759089466, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_a5408436302c0add746dc43a9826bf09 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2e34f9f9d609cd86f82a0ccae190d02c = $(`<div id="html_2e34f9f9d609cd86f82a0ccae190d02c" style="width: 100.0%; height: 100.0%;"><b>Dikwa, Borno</b><br/>Estimated school-age pop (5-17): 53,865<br/>Available schools (dataset): 37<br/>Students per school (est): 1,456<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_a5408436302c0add746dc43a9826bf09.setContent(html_2e34f9f9d609cd86f82a0ccae190d02c);
+            
+        
+
+        circle_marker_39100e516c94caa35ad57d1e221b1cfa.bindPopup(popup_a5408436302c0add746dc43a9826bf09)
+        ;
+
+        
+    
+    
+            var circle_marker_d27dba1c16d711758783d82235974897 = L.circleMarker(
+                [12.571806155585636, 12.788789039317738],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.07124727947029, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_56bd6ae285b2670287b3fa95c5a0058c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6b3b9a15c0bc5985e7b076d9ad7b2951 = $(`<div id="html_6b3b9a15c0bc5985e7b076d9ad7b2951" style="width: 100.0%; height: 100.0%;"><b>Gubio, Borno</b><br/>Estimated school-age pop (5-17): 77,595<br/>Available schools (dataset): 22<br/>Students per school (est): 3,527<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_56bd6ae285b2670287b3fa95c5a0058c.setContent(html_6b3b9a15c0bc5985e7b076d9ad7b2951);
+            
+        
+
+        circle_marker_d27dba1c16d711758783d82235974897.bindPopup(popup_56bd6ae285b2670287b3fa95c5a0058c)
+        ;
+
+        
+    
+    
+            var circle_marker_96d1f51fd1edc8955aa91bace2c586e1 = L.circleMarker(
+                [12.76355735427316, 13.271570556032216],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 17.41640786499874, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_ab62e8bc392bfbfbf112a9df85c10aa4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_98331d7179cda0d092df3b8c5044b62c = $(`<div id="html_98331d7179cda0d092df3b8c5044b62c" style="width: 100.0%; height: 100.0%;"><b>Guzamala, Borno</b><br/>Estimated school-age pop (5-17): 49,210<br/>Available schools (dataset): 20<br/>Students per school (est): 2,460<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_ab62e8bc392bfbfbf112a9df85c10aa4.setContent(html_98331d7179cda0d092df3b8c5044b62c);
+            
+        
+
+        circle_marker_96d1f51fd1edc8955aa91bace2c586e1.bindPopup(popup_ab62e8bc392bfbfbf112a9df85c10aa4)
+        ;
+
+        
+    
+    
+            var circle_marker_ad03b2359cd4d3835d39843ff2861377 = L.circleMarker(
+                [11.110352528582924, 13.705676778685113],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 33.24038303442689, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_bce98e62a23e59e714f28a80dc7bc6ae = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f885a0564f6a5067ccb015763e5c50c5 = $(`<div id="html_f885a0564f6a5067ccb015763e5c50c5" style="width: 100.0%; height: 100.0%;"><b>Gwoza, Borno</b><br/>Estimated school-age pop (5-17): 141,820<br/>Available schools (dataset): 95<br/>Students per school (est): 1,493<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_bce98e62a23e59e714f28a80dc7bc6ae.setContent(html_f885a0564f6a5067ccb015763e5c50c5);
+            
+        
+
+        circle_marker_ad03b2359cd4d3835d39843ff2861377.bindPopup(popup_bce98e62a23e59e714f28a80dc7bc6ae)
+        ;
+
+        
+    
+    
+            var circle_marker_2774d8fb3cf338ce7e4ce643b1c88220 = L.circleMarker(
+                [10.483535012094562, 12.2454720659067],
+                {"bubblingMouseEvents": true, "color": "#fee08b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fee08b", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 38.46737587922817, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_85c5d23fef23bc9c8dc5d2724e4c401c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e19d40b0858de824fe76936b3166b9c9 = $(`<div id="html_e19d40b0858de824fe76936b3166b9c9" style="width: 100.0%; height: 100.0%;"><b>Hawul, Borno</b><br/>Estimated school-age pop (5-17): 61,914<br/>Available schools (dataset): 132<br/>Students per school (est): 469<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_85c5d23fef23bc9c8dc5d2724e4c401c.setContent(html_e19d40b0858de824fe76936b3166b9c9);
+            
+        
+
+        circle_marker_2774d8fb3cf338ce7e4ce643b1c88220.bindPopup(popup_85c5d23fef23bc9c8dc5d2724e4c401c)
+        ;
+
+        
+    
+    
+            var circle_marker_93cf4442b1c68ad3c488444ec1ee96d1 = L.circleMarker(
+                [11.84038310302526, 13.176248598344777],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.622023622035435, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_280c4e629adcd70f4857a8622bfbfac2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_46369e7c084f57dffa4f60ca3b9028d6 = $(`<div id="html_46369e7c084f57dffa4f60ca3b9028d6" style="width: 100.0%; height: 100.0%;"><b>Jere, Borno</b><br/>Estimated school-age pop (5-17): 107,240<br/>Available schools (dataset): 62<br/>Students per school (est): 1,730<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_280c4e629adcd70f4857a8622bfbfac2.setContent(html_46369e7c084f57dffa4f60ca3b9028d6);
+            
+        
+
+        circle_marker_93cf4442b1c68ad3c488444ec1ee96d1.bindPopup(popup_280c4e629adcd70f4857a8622bfbfac2)
+        ;
+
+        
+    
+    
+            var circle_marker_fee5b07764bc9fa8114e574a612248f2 = L.circleMarker(
+                [11.635077515736562, 12.500483420835893],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.672315572906, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_2ede6366698e86a31b7219783a701d45 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d20cead6fb3803b692efd1a110a35f59 = $(`<div id="html_d20cead6fb3803b692efd1a110a35f59" style="width: 100.0%; height: 100.0%;"><b>Kaga, Borno</b><br/>Estimated school-age pop (5-17): 46,165<br/>Available schools (dataset): 43<br/>Students per school (est): 1,074<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_2ede6366698e86a31b7219783a701d45.setContent(html_d20cead6fb3803b692efd1a110a35f59);
+            
+        
+
+        circle_marker_fee5b07764bc9fa8114e574a612248f2.bindPopup(popup_2ede6366698e86a31b7219783a701d45)
+        ;
+
+        
+    
+    
+            var circle_marker_3cd119db02d49acb42c49d6d71f2aa15 = L.circleMarker(
+                [11.384049119219453, 12.995694116022175],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_dbcc103445d3a49418ca5390cfbe801b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_58d613abd0708ac312e28fe028b44730 = $(`<div id="html_58d613abd0708ac312e28fe028b44730" style="width: 100.0%; height: 100.0%;"><b>Kala Balge, Borno</b><br/>Estimated school-age pop (5-17): 31,184<br/>Available schools (dataset): 0<br/>Students per school (est): N/A<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_dbcc103445d3a49418ca5390cfbe801b.setContent(html_58d613abd0708ac312e28fe028b44730);
+            
+        
+
+        circle_marker_3cd119db02d49acb42c49d6d71f2aa15.bindPopup(popup_dbcc103445d3a49418ca5390cfbe801b)
+        ;
+
+        
+    
+    
+            var circle_marker_d2209feb9976542b359ed3f805ecf0d6 = L.circleMarker(
+                [11.693595656742385, 13.231926271004124],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 28.372115213907882, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_5690bb69a4b7b35246c4a22e5b602c65 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cc1a4294c6b15fcd2e6155da240ba40a = $(`<div id="html_cc1a4294c6b15fcd2e6155da240ba40a" style="width: 100.0%; height: 100.0%;"><b>Konduga, Borno</b><br/>Estimated school-age pop (5-17): 80,675<br/>Available schools (dataset): 66<br/>Students per school (est): 1,222<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_5690bb69a4b7b35246c4a22e5b602c65.setContent(html_cc1a4294c6b15fcd2e6155da240ba40a);
+            
+        
+
+        circle_marker_d2209feb9976542b359ed3f805ecf0d6.bindPopup(popup_5690bb69a4b7b35246c4a22e5b602c65)
+        ;
+
+        
+    
+    
+            var circle_marker_c421bbd71e6252c9b8852700a0979053 = L.circleMarker(
+                [13.018091261596679, 13.728891197847892],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.784609690826528, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_66cd2c83311102c1ed10198ea5e54a13 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3c45d34b10fbeba87c4db8368a35f3bd = $(`<div id="html_3c45d34b10fbeba87c4db8368a35f3bd" style="width: 100.0%; height: 100.0%;"><b>Kukawa, Borno</b><br/>Estimated school-age pop (5-17): 104,265<br/>Available schools (dataset): 48<br/>Students per school (est): 2,172<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_66cd2c83311102c1ed10198ea5e54a13.setContent(html_3c45d34b10fbeba87c4db8368a35f3bd);
+            
+        
+
+        circle_marker_c421bbd71e6252c9b8852700a0979053.bindPopup(popup_66cd2c83311102c1ed10198ea5e54a13)
+        ;
+
+        
+    
+    
+            var circle_marker_c67ce641c5b021c22d494502a3593218 = L.circleMarker(
+                [10.45293346040283, 11.912550327119865],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.12461179749811, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_7e65e880787bdb3795da0e277bc7ca78 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7f08321dc9000f66a1babf8a9e304f13 = $(`<div id="html_7f08321dc9000f66a1babf8a9e304f13" style="width: 100.0%; height: 100.0%;"><b>Kwaya Kusar, Borno</b><br/>Estimated school-age pop (5-17): 29,084<br/>Available schools (dataset): 45<br/>Students per school (est): 646<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_7e65e880787bdb3795da0e277bc7ca78.setContent(html_7f08321dc9000f66a1babf8a9e304f13);
+            
+        
+
+        circle_marker_c67ce641c5b021c22d494502a3593218.bindPopup(popup_7e65e880787bdb3795da0e277bc7ca78)
+        ;
+
+        
+    
+    
+            var circle_marker_2555bc4c942c6a1741b99b7e0e9959fb = L.circleMarker(
+                [11.943218625498648, 13.495340607409737],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.346989949375804, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_a84c3f331efa01306fc55e49a6c6d4ef = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7c76f50afcc0d65d63cf218efa7a249f = $(`<div id="html_7c76f50afcc0d65d63cf218efa7a249f" style="width: 100.0%; height: 100.0%;"><b>Mafa, Borno</b><br/>Estimated school-age pop (5-17): 53,130<br/>Available schools (dataset): 46<br/>Students per school (est): 1,155<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_a84c3f331efa01306fc55e49a6c6d4ef.setContent(html_7c76f50afcc0d65d63cf218efa7a249f);
+            
+        
+
+        circle_marker_2555bc4c942c6a1741b99b7e0e9959fb.bindPopup(popup_a84c3f331efa01306fc55e49a6c6d4ef)
+        ;
+
+        
+    
+    
+            var circle_marker_9a04b245a064bcab1ed4c1c4467c1ebf = L.circleMarker(
+                [12.195940778246003, 12.786047065326768],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.233687939614086, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_683d0dfa243bb62d2c0a9bec056593bb = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2c2b47b2fed763cd2e110e2a495596cb = $(`<div id="html_2c2b47b2fed763cd2e110e2a495596cb" style="width: 100.0%; height: 100.0%;"><b>Magumeri, Borno</b><br/>Estimated school-age pop (5-17): 71,925<br/>Available schools (dataset): 33<br/>Students per school (est): 2,180<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_683d0dfa243bb62d2c0a9bec056593bb.setContent(html_2c2b47b2fed763cd2e110e2a495596cb);
+            
+        
+
+        circle_marker_9a04b245a064bcab1ed4c1c4467c1ebf.bindPopup(popup_683d0dfa243bb62d2c0a9bec056593bb)
+        ;
+
+        
+    
+    
+            var circle_marker_d5f90b2f5b625f354ed8b43e0bfbcff1 = L.circleMarker(
+                [11.839002193428362, 13.140558690885046],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 32.61817604250837, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_742dc8888b934bef43489d660a2a837b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d87655b9b38d6cc398c471a9205fd933 = $(`<div id="html_d87655b9b38d6cc398c471a9205fd933" style="width: 100.0%; height: 100.0%;"><b>Maiduguri, Borno</b><br/>Estimated school-age pop (5-17): 276,920<br/>Available schools (dataset): 91<br/>Students per school (est): 3,043<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_742dc8888b934bef43489d660a2a837b.setContent(html_d87655b9b38d6cc398c471a9205fd933);
+            
+        
+
+        circle_marker_d5f90b2f5b625f354ed8b43e0bfbcff1.bindPopup(popup_742dc8888b934bef43489d660a2a837b)
+        ;
+
+        
+    
+    
+            var circle_marker_892604a8c6c2e5bafac8b0eb4b35e9b1 = L.circleMarker(
+                [12.344688517207784, 13.82055986524454],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.492855684535904, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_4a734930ac9f11a0143133c6664a8986 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2ba93d47ac2807ad020518a4810b5838 = $(`<div id="html_2ba93d47ac2807ad020518a4810b5838" style="width: 100.0%; height: 100.0%;"><b>Marte, Borno</b><br/>Estimated school-age pop (5-17): 66,360<br/>Available schools (dataset): 34<br/>Students per school (est): 1,952<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_4a734930ac9f11a0143133c6664a8986.setContent(html_2ba93d47ac2807ad020518a4810b5838);
+            
+        
+
+        circle_marker_892604a8c6c2e5bafac8b0eb4b35e9b1.bindPopup(popup_4a734930ac9f11a0143133c6664a8986)
+        ;
+
+        
+    
+    
+            var circle_marker_df5cf16a2fbbec308a2941e3566f6879 = L.circleMarker(
+                [13.167192361044803, 12.624641717024637],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 18.696938456699066, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_1b90f2ebf92ce227becd5ac843fd780d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_aef65659e2adccf9e93ad8613fbdd781 = $(`<div id="html_aef65659e2adccf9e93ad8613fbdd781" style="width: 100.0%; height: 100.0%;"><b>Mobbar, Borno</b><br/>Estimated school-age pop (5-17): 59,814<br/>Available schools (dataset): 24<br/>Students per school (est): 2,492<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_1b90f2ebf92ce227becd5ac843fd780d.setContent(html_aef65659e2adccf9e93ad8613fbdd781);
+            
+        
+
+        circle_marker_df5cf16a2fbbec308a2941e3566f6879.bindPopup(popup_1b90f2ebf92ce227becd5ac843fd780d)
+        ;
+
+        
+    
+    
+            var circle_marker_f39affbf7d72fcbf851811a0e10ba545 = L.circleMarker(
+                [12.532156927441022, 13.570600095088057],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.44222209522358, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_534eb02eeeec05b9404f26321de54548 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_b5bbe2a4bf66bce1c57f0054afed753d = $(`<div id="html_b5bbe2a4bf66bce1c57f0054afed753d" style="width: 100.0%; height: 100.0%;"><b>Monguno, Borno</b><br/>Estimated school-age pop (5-17): 56,315<br/>Available schools (dataset): 42<br/>Students per school (est): 1,341<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_534eb02eeeec05b9404f26321de54548.setContent(html_b5bbe2a4bf66bce1c57f0054afed753d);
+            
+        
+
+        circle_marker_f39affbf7d72fcbf851811a0e10ba545.bindPopup(popup_534eb02eeeec05b9404f26321de54548)
+        ;
+
+        
+    
+    
+            var circle_marker_b7168150dcf4b4e8923e27937a8d01f9 = L.circleMarker(
+                [12.353512081050983, 14.163871030683676],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.0, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_841677e5833c9753e78e8e35764cabaa = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_371e64c073348cb325302ba74dac5349 = $(`<div id="html_371e64c073348cb325302ba74dac5349" style="width: 100.0%; height: 100.0%;"><b>Ngala, Borno</b><br/>Estimated school-age pop (5-17): 121,274<br/>Available schools (dataset): 36<br/>Students per school (est): 3,369<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_841677e5833c9753e78e8e35764cabaa.setContent(html_371e64c073348cb325302ba74dac5349);
+            
+        
+
+        circle_marker_b7168150dcf4b4e8923e27937a8d01f9.bindPopup(popup_841677e5833c9753e78e8e35764cabaa)
+        ;
+
+        
+    
+    
+            var circle_marker_1644fdcfee70ec6dcda3a30ec30c7467 = L.circleMarker(
+                [12.437283265989823, 13.2236629314092],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.0, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_5c0cdd62804872aef8bea24e7d00043f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_02f13ccab17e146c43488817a160b92b = $(`<div id="html_02f13ccab17e146c43488817a160b92b" style="width: 100.0%; height: 100.0%;"><b>Nganzai, Borno</b><br/>Estimated school-age pop (5-17): 50,820<br/>Available schools (dataset): 25<br/>Students per school (est): 2,033<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_5c0cdd62804872aef8bea24e7d00043f.setContent(html_02f13ccab17e146c43488817a160b92b);
+            
+        
+
+        circle_marker_1644fdcfee70ec6dcda3a30ec30c7467.bindPopup(popup_5c0cdd62804872aef8bea24e7d00043f)
+        ;
+
+        
+    
+    
+            var circle_marker_06acbe13d0a4617171eb1c37b05db9b8 = L.circleMarker(
+                [10.181971235510263, 11.986502627535327],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 31.0, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_84302f0b64bd08f766643a0678d78c69 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_20228c6e9971251b57526bf4186825f5 = $(`<div id="html_20228c6e9971251b57526bf4186825f5" style="width: 100.0%; height: 100.0%;"><b>Shani, Borno</b><br/>Estimated school-age pop (5-17): 51,800<br/>Available schools (dataset): 81<br/>Students per school (est): 640<br/>Out-of-school rate: 0.542<br/></div>`)[0];
+                popup_84302f0b64bd08f766643a0678d78c69.setContent(html_20228c6e9971251b57526bf4186825f5);
+            
+        
+
+        circle_marker_06acbe13d0a4617171eb1c37b05db9b8.bindPopup(popup_84302f0b64bd08f766643a0678d78c69)
+        ;
+
+        
+    
+    
+            var circle_marker_85a3d507b4aa33f712d39e0a0cc5d666 = L.circleMarker(
+                [12.812616036212486, 10.901835621995543],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 26.64950330581225, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_e500376c7ba39e14ffb6836ce95f3c63 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_67a3e5a2eb34e949f9717ef88299e884 = $(`<div id="html_67a3e5a2eb34e949f9717ef88299e884" style="width: 100.0%; height: 100.0%;"><b>Bade, Yobe</b><br/>Estimated school-age pop (5-17): 76,930<br/>Available schools (dataset): 57<br/>Students per school (est): 1,350<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_e500376c7ba39e14ffb6836ce95f3c63.setContent(html_67a3e5a2eb34e949f9717ef88299e884);
+            
+        
+
+        circle_marker_85a3d507b4aa33f712d39e0a0cc5d666.bindPopup(popup_e500376c7ba39e14ffb6836ce95f3c63)
+        ;
+
+        
+    
+    
+            var circle_marker_7b18e9453fc23759168895bb4a5b3e4e = L.circleMarker(
+                [12.77717571034456, 11.357747073132005],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.043437243605823, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_9e6fcadc2c19ea4853c16acd666ba7d7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c9e901d1ae3bd358e3eb3b3e6fcf7c40 = $(`<div id="html_c9e901d1ae3bd358e3eb3b3e6fcf7c40" style="width: 100.0%; height: 100.0%;"><b>Bursari, Yobe</b><br/>Estimated school-age pop (5-17): 60,374<br/>Available schools (dataset): 59<br/>Students per school (est): 1,023<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_9e6fcadc2c19ea4853c16acd666ba7d7.setContent(html_c9e901d1ae3bd358e3eb3b3e6fcf7c40);
+            
+        
+
+        circle_marker_7b18e9453fc23759168895bb4a5b3e4e.bindPopup(popup_9e6fcadc2c19ea4853c16acd666ba7d7)
+        ;
+
+        
+    
+    
+            var circle_marker_603f6d5ef923c0c5d7af149769fa5505 = L.circleMarker(
+                [11.805154148492832, 12.009376799980364],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 19.0, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_eb37b3fa0ba28bb470876c1fcc29590d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9d9bd8097fd670b0a03e0ad11d86b3d7 = $(`<div id="html_9d9bd8097fd670b0a03e0ad11d86b3d7" style="width: 100.0%; height: 100.0%;"><b>Damaturu, Yobe</b><br/>Estimated school-age pop (5-17): 48,265<br/>Available schools (dataset): 25<br/>Students per school (est): 1,931<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_eb37b3fa0ba28bb470876c1fcc29590d.setContent(html_9d9bd8097fd670b0a03e0ad11d86b3d7);
+            
+        
+
+        circle_marker_603f6d5ef923c0c5d7af149769fa5505.bindPopup(popup_eb37b3fa0ba28bb470876c1fcc29590d)
+        ;
+
+        
+    
+    
+            var circle_marker_908dc1168a2f4b5e6592d5252a174b6f = L.circleMarker(
+                [11.342623366332358, 11.192202892936399],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 33.24038303442689, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_063c84feb1008d2680dccc18891825c0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e06c3be424591a7516b946d7c62afd19 = $(`<div id="html_e06c3be424591a7516b946d7c62afd19" style="width: 100.0%; height: 100.0%;"><b>Fika, Yobe</b><br/>Estimated school-age pop (5-17): 75,250<br/>Available schools (dataset): 95<br/>Students per school (est): 792<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_063c84feb1008d2680dccc18891825c0.setContent(html_e06c3be424591a7516b946d7c62afd19);
+            
+        
+
+        circle_marker_908dc1168a2f4b5e6592d5252a174b6f.bindPopup(popup_063c84feb1008d2680dccc18891825c0)
+        ;
+
+        
+    
+    
+            var circle_marker_1849ede8b2bb030c64adbc91b97c7d54 = L.circleMarker(
+                [11.738008013158781, 11.419579743363471],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 36.17141588429082, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_ff93a4aaaaaad97e84aa024de843a57a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_46788a3ed1f0a760c0b0c441b0e48bc1 = $(`<div id="html_46788a3ed1f0a760c0b0c441b0e48bc1" style="width: 100.0%; height: 100.0%;"><b>Fune, Yobe</b><br/>Estimated school-age pop (5-17): 166,145<br/>Available schools (dataset): 115<br/>Students per school (est): 1,445<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_ff93a4aaaaaad97e84aa024de843a57a.setContent(html_46788a3ed1f0a760c0b0c441b0e48bc1);
+            
+        
+
+        circle_marker_1849ede8b2bb030c64adbc91b97c7d54.bindPopup(popup_ff93a4aaaaaad97e84aa024de843a57a)
+        ;
+
+        
+    
+    
+            var circle_marker_3644160eba8f31576de0ddbec418bbcd = L.circleMarker(
+                [12.764763754787548, 11.972783616086582],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.15549442140351, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_ec86dbe5cdd66428f01aab2a52ca099a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_222fd8850b31dbd683fcbf83d34e9c77 = $(`<div id="html_222fd8850b31dbd683fcbf83d34e9c77" style="width: 100.0%; height: 100.0%;"><b>Geidam, Yobe</b><br/>Estimated school-age pop (5-17): 85,715<br/>Available schools (dataset): 29<br/>Students per school (est): 2,956<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_ec86dbe5cdd66428f01aab2a52ca099a.setContent(html_222fd8850b31dbd683fcbf83d34e9c77);
+            
+        
+
+        circle_marker_3644160eba8f31576de0ddbec418bbcd.bindPopup(popup_ec86dbe5cdd66428f01aab2a52ca099a)
+        ;
+
+        
+    
+    
+            var circle_marker_d20fdfcd60427a00c06b4971f8b14ab6 = L.circleMarker(
+                [11.360327077398626, 12.004633323739524],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 27.043437243605823, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_d85718af3ca4d74cdffa5cf42f3f1045 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e668f93d3a4ab2c3c8e7a429d8a6285c = $(`<div id="html_e668f93d3a4ab2c3c8e7a429d8a6285c" style="width: 100.0%; height: 100.0%;"><b>Gujba, Yobe</b><br/>Estimated school-age pop (5-17): 71,435<br/>Available schools (dataset): 59<br/>Students per school (est): 1,211<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_d85718af3ca4d74cdffa5cf42f3f1045.setContent(html_e668f93d3a4ab2c3c8e7a429d8a6285c);
+            
+        
+
+        circle_marker_d20fdfcd60427a00c06b4971f8b14ab6.bindPopup(popup_d85718af3ca4d74cdffa5cf42f3f1045)
+        ;
+
+        
+    
+    
+            var circle_marker_c5c41c44c2f62f65ce9aa7642d765b35 = L.circleMarker(
+                [10.958144732613293, 11.713126087164849],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 26.045407685048602, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_fac98b7c360fb6185d370c8ad2a3e1ae = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8bf571dac54415613b4f0b85bde1ec67 = $(`<div id="html_8bf571dac54415613b4f0b85bde1ec67" style="width: 100.0%; height: 100.0%;"><b>Gulani, Yobe</b><br/>Estimated school-age pop (5-17): 56,945<br/>Available schools (dataset): 54<br/>Students per school (est): 1,055<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_fac98b7c360fb6185d370c8ad2a3e1ae.setContent(html_8bf571dac54415613b4f0b85bde1ec67);
+            
+        
+
+        circle_marker_c5c41c44c2f62f65ce9aa7642d765b35.bindPopup(popup_fac98b7c360fb6185d370c8ad2a3e1ae)
+        ;
+
+        
+    
+    
+            var circle_marker_4b99607a425a05ee4903f2a8cd1b039b = L.circleMarker(
+                [12.538369788223397, 10.866730795976878],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 31.331300737432898, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_e1a9e87e14d4a2ddd79c4da8bc0b5d7d = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2d9b50c83e32e08575fdb2ecfaf53bfd = $(`<div id="html_2d9b50c83e32e08575fdb2ecfaf53bfd" style="width: 100.0%; height: 100.0%;"><b>Jakusko, Yobe</b><br/>Estimated school-age pop (5-17): 127,924<br/>Available schools (dataset): 83<br/>Students per school (est): 1,541<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_e1a9e87e14d4a2ddd79c4da8bc0b5d7d.setContent(html_2d9b50c83e32e08575fdb2ecfaf53bfd);
+            
+        
+
+        circle_marker_4b99607a425a05ee4903f2a8cd1b039b.bindPopup(popup_e1a9e87e14d4a2ddd79c4da8bc0b5d7d)
+        ;
+
+        
+    
+    
+            var circle_marker_f786bce37130dd0a7ab4ec2514512c7f = L.circleMarker(
+                [12.932069093720184, 10.808028600193026],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.42428528562855, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_7f68008ef00fedd5d248ed146083713c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5e626a39d3fbd469196445830b3edde3 = $(`<div id="html_5e626a39d3fbd469196445830b3edde3" style="width: 100.0%; height: 100.0%;"><b>Karasuwa, Yobe</b><br/>Estimated school-age pop (5-17): 58,064<br/>Available schools (dataset): 51<br/>Students per school (est): 1,139<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_7f68008ef00fedd5d248ed146083713c.setContent(html_5e626a39d3fbd469196445830b3edde3);
+            
+        
+
+        circle_marker_f786bce37130dd0a7ab4ec2514512c7f.bindPopup(popup_7f68008ef00fedd5d248ed146083713c)
+        ;
+
+        
+    
+    
+            var circle_marker_d72573cca2a817686d06f6ab3ff1dc5a = L.circleMarker(
+                [13.022338751769313, 9.966504515603011],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 21.233687939614086, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_06d50947152fc8a28e49b38d6c097b48 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6a9f3b6917ca3923e588dc93c208fdd5 = $(`<div id="html_6a9f3b6917ca3923e588dc93c208fdd5" style="width: 100.0%; height: 100.0%;"><b>Machina, Yobe</b><br/>Estimated school-age pop (5-17): 33,565<br/>Available schools (dataset): 33<br/>Students per school (est): 1,017<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_06d50947152fc8a28e49b38d6c097b48.setContent(html_6a9f3b6917ca3923e588dc93c208fdd5);
+            
+        
+
+        circle_marker_d72573cca2a817686d06f6ab3ff1dc5a.bindPopup(popup_06d50947152fc8a28e49b38d6c097b48)
+        ;
+
+        
+    
+    
+            var circle_marker_095321a162ae3a7bc1a9d4875dcc6cc8 = L.circleMarker(
+                [11.79222376147399, 11.018421134860422],
+                {"bubblingMouseEvents": true, "color": "#fdae61", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fdae61", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 28.919871588754226, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_d366d885fb8463809e94f30f2c9d3bab = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e4c929def7e697be3b40734f574693ab = $(`<div id="html_e4c929def7e697be3b40734f574693ab" style="width: 100.0%; height: 100.0%;"><b>Nangere, Yobe</b><br/>Estimated school-age pop (5-17): 48,160<br/>Available schools (dataset): 69<br/>Students per school (est): 698<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_d366d885fb8463809e94f30f2c9d3bab.setContent(html_e4c929def7e697be3b40734f574693ab);
+            
+        
+
+        circle_marker_095321a162ae3a7bc1a9d4875dcc6cc8.bindPopup(popup_d366d885fb8463809e94f30f2c9d3bab)
+        ;
+
+        
+    
+    
+            var circle_marker_498cd8e6b23caf8f68367558356653e9 = L.circleMarker(
+                [12.90852045982707, 10.430933577323533],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 26.24859546128699, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_9c816f58f995ceae9a2760ab20261c06 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_69dfd8c0ee393ed07750b46fd872631e = $(`<div id="html_69dfd8c0ee393ed07750b46fd872631e" style="width: 100.0%; height: 100.0%;"><b>Nguru, Yobe</b><br/>Estimated school-age pop (5-17): 82,915<br/>Available schools (dataset): 55<br/>Students per school (est): 1,508<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_9c816f58f995ceae9a2760ab20261c06.setContent(html_69dfd8c0ee393ed07750b46fd872631e);
+            
+        
+
+        circle_marker_498cd8e6b23caf8f68367558356653e9.bindPopup(popup_9c816f58f995ceae9a2760ab20261c06)
+        ;
+
+        
+    
+    
+            var circle_marker_2dc46151d7dad4a222d1c02b87ec5c95 = L.circleMarker(
+                [11.688119246616079, 11.108966050744938],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 26.847319317591726, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_5000d515e46372c3447e1b2548cd00b0 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_88a597d21b977e30e0366a12b2b36d1e = $(`<div id="html_88a597d21b977e30e0366a12b2b36d1e" style="width: 100.0%; height: 100.0%;"><b>Potiskum, Yobe</b><br/>Estimated school-age pop (5-17): 112,735<br/>Available schools (dataset): 58<br/>Students per school (est): 1,944<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_5000d515e46372c3447e1b2548cd00b0.setContent(html_88a597d21b977e30e0366a12b2b36d1e);
+            
+        
+
+        circle_marker_2dc46151d7dad4a222d1c02b87ec5c95.bindPopup(popup_5000d515e46372c3447e1b2548cd00b0)
+        ;
+
+        
+    
+    
+            var circle_marker_dd94a1a67afb304009e515efd7337551 = L.circleMarker(
+                [12.164058622474409, 11.223574023693647],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_fad2c5658cf7a1c5bb97905f911929e9 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_816aef04efc2d488582fa474baa2a38a = $(`<div id="html_816aef04efc2d488582fa474baa2a38a" style="width: 100.0%; height: 100.0%;"><b>Tarmua, Yobe</b><br/>Estimated school-age pop (5-17): 42,735<br/>Available schools (dataset): 0<br/>Students per school (est): N/A<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_fad2c5658cf7a1c5bb97905f911929e9.setContent(html_816aef04efc2d488582fa474baa2a38a);
+            
+        
+
+        circle_marker_dd94a1a67afb304009e515efd7337551.bindPopup(popup_fad2c5658cf7a1c5bb97905f911929e9)
+        ;
+
+        
+    
+    
+            var circle_marker_8211628e6f34e052fe8532ff81ae416a = L.circleMarker(
+                [13.08334135977783, 11.79103636688894],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.12461179749811, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_cdd9fb21541a51608ea2a82554204358 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_4b3987937698c80f0a6cf314f7cec05d = $(`<div id="html_4b3987937698c80f0a6cf314f7cec05d" style="width: 100.0%; height: 100.0%;"><b>Yunusari, Yobe</b><br/>Estimated school-age pop (5-17): 69,300<br/>Available schools (dataset): 45<br/>Students per school (est): 1,540<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_cdd9fb21541a51608ea2a82554204358.setContent(html_4b3987937698c80f0a6cf314f7cec05d);
+            
+        
+
+        circle_marker_8211628e6f34e052fe8532ff81ae416a.bindPopup(popup_cdd9fb21541a51608ea2a82554204358)
+        ;
+
+        
+    
+    
+            var circle_marker_21e1be4cb73db0e3fe4b11e60486c4e4 = L.circleMarker(
+                [13.129064501492094, 10.866364012399474],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 20.15549442140351, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_a675e7feac945c81574924a9d7bd8287);
+        
+    
+        var popup_0f9e8db6fe6f0ee0451120df774f11cc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_50bd6c92aa5be0f496e8762151ede1c3 = $(`<div id="html_50bd6c92aa5be0f496e8762151ede1c3" style="width: 100.0%; height: 100.0%;"><b>Yusufari, Yobe</b><br/>Estimated school-age pop (5-17): 60,934<br/>Available schools (dataset): 29<br/>Students per school (est): 2,101<br/>Out-of-school rate: 0.629<br/></div>`)[0];
+                popup_0f9e8db6fe6f0ee0451120df774f11cc.setContent(html_50bd6c92aa5be0f496e8762151ede1c3);
+            
+        
+
+        circle_marker_21e1be4cb73db0e3fe4b11e60486c4e4.bindPopup(popup_0f9e8db6fe6f0ee0451120df774f11cc)
+        ;
+
+        
+    
+    
+            marker_cluster_a675e7feac945c81574924a9d7bd8287.addTo(map_726632330f13f93a78dd41b95e94a3e3);
+        
+</script>
+</html>
