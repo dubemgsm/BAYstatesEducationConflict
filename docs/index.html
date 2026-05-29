@@ -9,9 +9,44 @@
 <body>
   <h1>BAY state education conflict analysis</h1>
   <p>A short dashboard for exploring school locations and school-age population in Borno, Adamawa and Yobe.</p>
-  <p><a class="button" href="/bay_school_heatmap.html">Open BAY school heatmap</a></p>
-  <h2>Map preview</h2>
+  <p>
+    <a class="button" href="/bay_school_heatmap.html">Open BAY school heatmap</a>
+    <a class="button" href="/conflict_proximity_map.html" style="background:#e74c3c">Open Conflict Proximity Map</a>
+    <a class="button" href="/schools_at_risk_5km.html" style="background:#f39c12">Open Schools at Risk (5km)</a>
+  </p>
+  <h2>Map preview (Heatmap)</h2>
   <iframe src="/bay_school_heatmap.html" title="BAY school heatmap" style="width:100%;height:700px;border:1px solid #ccc"></iframe>
+  <h2>Map preview (Conflict Proximity)</h2>
+  <iframe src="/conflict_proximity_map.html" title="Conflict Proximity Map" style="width:100%;height:700px;border:1px solid #ccc"></iframe>
+  <h2>Map preview (Schools at Risk - 5km)</h2>
+  <iframe src="/schools_at_risk_5km.html" title="Schools at Risk (5km)" style="width:100%;height:700px;border:1px solid #ccc"></iframe>
+
+  <h1>Conflict Trends & Predictive Patterns Analysis</h1>
+  
+  <h3>1. Yearly Trend (2003-2024)</h3>
+  <p>The conflict events show a significant escalation after 2009, peaking around 2014-2015, with sustained high levels of activity in the following decade.</p>
+  <img src="/analysis/yearly_trend.png" alt="Yearly Trend" style="max-width:100%">
+
+  <h3>2. Monthly Seasonality</h3>
+  <p>Aggregated data shows fluctuations across months. Certain months show higher activity which may correlate with dry/rainy seasons affecting movement and logistics.</p>
+  <img src="/analysis/monthly_seasonality.png" alt="Monthly Seasonality" style="max-width:100%">
+
+  <h3>3. Ramadan Impact Analysis</h3>
+  <p>Analysis compares the average daily conflict rate against the rate observed during the holy month of Ramadan. Shifts in intensity during this period can offer predictive markers.</p>
+  <img src="/analysis/ramadan_comparison.png" alt="Ramadan Comparison" style="max-width:100%">
+
+  <h3>4. End of Year / New Year Activity</h3>
+  <p>Conflict patterns during December and January across the years help identify if the holiday season acts as a catalyst or a deterrent for conflict events.</p>
+  <img src="/analysis/eoy_analysis.png" alt="End of Year Analysis" style="max-width:100%">
+
+  <section>
+    <h3>Key Findings & Predictive Patterns</h3>
+    <ul>
+      <li><b>Post-2009 Surge:</b> A clear structural shift in conflict frequency occurred after 2009.</li>
+      <li><b>Seasonal Clusters:</b> Conflict is not uniformly distributed; predictive models should account for monthly variations possibly linked to climate and accessibility.</li>
+      <li><b>Event Correlation:</b> Comparison with Ramadan and year-end periods shows measurable differences in event frequency, suggesting that major religious and civic milestones influence conflict timing.</li>
+    </ul>
+  </section>
   <footer><p>Generated from cleaned data in the repository.</p></footer>
 </body>
 </html>
