@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Dive: BAY States Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        h1, h2 { text-align: center; color: #2c3e50; }
+        h2 { margin-top: 50px; border-bottom: 2px solid #ccc; padding-bottom: 10px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .nav-btn { display: inline-block; margin-bottom: 20px; padding: 10px 15px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: background 0.3s; }
+        .nav-btn:hover { background-color: #218838; }
+        .dashboard { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .chart-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .chart-wrapper { position: relative; height: 400px; width: 100%; }
+        @media (min-width: 900px) {
+            .dashboard { grid-template-columns: 1fr 1fr; }
+            .full-width { grid-column: 1 / -1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+        <a href="index.html" class="nav-btn">🔙 Back to Map</a>
+        <a href="https://github.com/dubemgsm/BAYstatesEducationConflict" target="_blank" class="nav-btn" style="background-color: #24292e;"><svg height="16" width="16" viewBox="0 0 16 16" style="fill: white; vertical-align: middle; margin-right: 5px;"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> View on GitHub</a>
+    </div>
+    
+    <h1>Deep Dive: Education & Vulnerability Analysis</h1>
+    
+    <h2>Section 1: Educational Infrastructure</h2>
+    <div class="dashboard">
+        <div class="chart-container full-width">
+            <h3>1. Top 10 LGAs by Education Access Gap</h3>
+            <div class="chart-wrapper" style="height: 350px;"><canvas id="gapChart"></canvas></div>
+        </div>
+        <div class="chart-container full-width">
+            <h3>2. Population vs. Number of Schools</h3>
+            <div class="chart-wrapper" style="height: 450px;"><canvas id="popSchoolChart"></canvas></div>
+        </div>
+        <div class="chart-container full-width">
+            <h3>3. Conflict Intensity vs. School Availability (Top 15 Most Violent LGAs)</h3>
+            <p><small>Comparing the number of recent conflict events (red bars) to the number of operational schools (green line) in the hardest-hit areas.</small></p>
+            <div class="chart-wrapper" style="height: 500px;"><canvas id="conflictSchoolChart"></canvas></div>
+        </div>
+    </div>
+
+    <h2>Section 2: Predictive Conflict Patterns</h2>
+    <p style="text-align:center; max-width:800px; margin:0 auto 30px;">
+        Analysis of historical conflict events (2020-2024) in the BAY states against public and religious holidays to identify predictive patterns.
+    </p>
+
+    <div class="dashboard">
+        <div class="chart-container">
+            <h3>4. Monthly Seasonality (2020-2024)</h3>
+            <p><small>January shows the highest peak, correlating with the dry season which increases mobility.</small></p>
+            <div class="chart-wrapper" style="height: 300px;"><canvas id="monthChart"></canvas></div>
+        </div>
+
+        <div class="chart-container">
+            <h3>5. Tactical Timing (Proximity to Holidays)</h3>
+            <p><small>Analyzes the 7-day window around events. Spikes are visible 3 days <b>before</b> holidays.</small></p>
+            <div class="chart-wrapper" style="height: 300px;"><canvas id="timingChart"></canvas></div>
+        </div>
+
+        <div class="chart-container full-width">
+            <h3>6. Top 5 High-Risk Holidays / Events</h3>
+            <p><small>The specific holidays and periods that see the highest concentration of conflict in their 7-day window.</small></p>
+            <div class="chart-wrapper" style="height: 350px;"><canvas id="holidayChart"></canvas></div>
+        </div>
+    </div>
+
+    <h2>Section 3: High-Risk Hotspots (Predictive)</h2>
+    <p style="text-align:center; max-width:800px; margin:0 auto 30px;">
+        Risk scores calculated based on recent momentum (last 18 months), total historical frequency (2020-2024), and overall intensity (fatalities).
+    </p>
+
+    <div class="dashboard">
+        <div class="chart-container">
+            <h3>7. Top 10 High-Risk LGAs</h3>
+            <p><small>Broader regional areas predicted to be most susceptible to continued conflict.</small></p>
+            <div class="chart-wrapper" style="height: 400px;"><canvas id="lgaRiskChart"></canvas></div>
+        </div>
+
+        <div class="chart-container">
+            <h3>8. Top 10 High-Risk Towns / Settlements</h3>
+            <p><small>Specific, localized targets showing sustained or recent spikes in violence.</small></p>
+            <div class="chart-wrapper" style="height: 400px;"><canvas id="townRiskChart"></canvas></div>
+        </div>
+    </div>
+
+    <script>
+        // --- Infrastructure Charts ---
+        new Chart(document.getElementById('gapChart'), {
+            type: 'bar',
+            data: { labels: ["Askira/Uba (Borno)", "Marte (Borno)", "Abadam (Borno)", "Kala/Balge (Borno)", "Magumeri (Borno)", "Gubio (Borno)", "Ngala (Borno)", "Mobbar (Borno)", "Nganzai (Borno)", "Dikwa (Borno)"], datasets: [{ label: 'People per Open School', data: [210000.0, 189600.0, 146600.0, 89100.0, 41100.0, 36950.0, 34650.0, 34180.0, 29040.0, 25650.0], backgroundColor: 'rgba(220, 53, 69, 0.7)' }] },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        new Chart(document.getElementById('popSchoolChart'), {
+            type: 'bar',
+            data: {
+                labels: ["Maiduguri (Borno)", "Fune (Yobe)", "Gwoza (Borno)", "Bama (Borno)", "Jakusko (Yobe)", "Ngala (Borno)", "Damboa (Borno)", "Fufore (Adamawa)", "Potiskum (Yobe)", "Yola North (Adamawa)", "Jere (Borno)", "Yola South (Adamawa)", "Song (Adamawa)", "Kukawa (Borno)", "Demsa (Adamawa)", "Guyuk (Adamawa)", "Ganye (Adamawa)", "Hong (Adamawa)", "Jada (Adamawa)", "Biu (Borno)"],
+                datasets: [
+                    { label: 'Population', data: [791200, 474700, 405200, 395800, 365500, 346500, 341700, 323000, 322100, 308000, 306400, 303000, 301000, 297900, 275100, 272200, 262100, 260900, 259700, 257500], backgroundColor: 'rgba(54, 162, 235, 0.6)', yAxisID: 'y' },
+                    { label: 'Open Schools', data: [85, 137, 25, 19, 94, 9, 25, 249, 118, 161, 47, 198, 240, 21, 231, 174, 278, 263, 231, 104], type: 'line', borderColor: '#28a745', yAxisID: 'y1' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false, scales: { y: { position: 'left' }, y1: { position: 'right' } } }
+        });
+
+        new Chart(document.getElementById('conflictSchoolChart'), {
+            type: 'bar',
+            data: {
+                labels: ["Bama (Borno)", "Gwoza (Borno)", "Damboa (Borno)", "Konduga (Borno)", "Kukawa (Borno)", "Abadam (Borno)", "Marte (Borno)", "Ngala (Borno)", "Mafa (Borno)", "Mobbar (Borno)", "Dikwa (Borno)", "Monguno (Borno)", "Gujba (Yobe)", "Kaga (Borno)", "Magumeri (Borno)"],
+                datasets: [
+                    { label: 'Conflict Events (2020-2024)', data: [152, 146, 113, 96, 92, 86, 75, 73, 61, 50, 47, 45, 45, 37, 29], backgroundColor: 'rgba(220, 53, 69, 0.7)', yAxisID: 'y' },
+                    { label: 'Open Schools', data: [19, 25, 25, 18, 21, 0, 0, 9, 8, 4, 5, 7, 42, 19, 4], type: 'line', borderColor: '#28a745', backgroundColor: '#28a745', borderWidth: 3, tension: 0.1, yAxisID: 'y1' }
+                ]
+            },
+            options: { 
+                responsive: true, maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                scales: { 
+                    y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'Conflict Events' } },
+                    y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Number of Schools' }, grid: { drawOnChartArea: false } }
+                } 
+            }
+        });
+
+        // --- Conflict Pattern Charts ---
+        new Chart(document.getElementById('monthChart'), {
+            type: 'line',
+            data: {
+                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{ label: 'Total Historical Conflicts', data: [222, 138, 128, 136, 114, 112, 107, 132, 137, 144, 147, 124], borderColor: '#6f42c1', backgroundColor: 'rgba(111, 66, 193, 0.2)', fill: true, tension: 0.3 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        new Chart(document.getElementById('timingChart'), {
+            type: 'bar',
+            data: {
+                labels: ["3 Days Before", "2 Days Before", "1 Day Before", "On the Day", "1 Day After", "2 Days After", "3 Days After"],
+                datasets: [{ 
+                    label: 'Conflict Events', 
+                    data: [68, 55, 42, 43, 29, 33, 28], 
+                    backgroundColor: ['#dc3545', '#ffc107', '#ffc107', '#28a745', '#17a2b8', '#17a2b8', '#17a2b8'] 
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+
+        new Chart(document.getElementById('holidayChart'), {
+            type: 'bar',
+            data: {
+                labels: ["Start of Ramadan", "Good Friday", "Democracy Day", "Christmas Day", "Id el Maulud"],
+                datasets: [{ label: 'Conflict Events (Within 7-day window)', data: [39, 30, 28, 28, 26], backgroundColor: '#6610f2' }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+        });
+
+        // --- Predictive Risk Charts ---
+        new Chart(document.getElementById('lgaRiskChart'), {
+            type: 'bar',
+            data: {
+                labels: ["Gwoza lga (Borno)", "Bama lga (Borno)", "Damboa lga (Borno)", "Marte lga (Borno)", "Konduga lga (Borno)", "Kukawa lga (Borno)", "Abadam lga (Borno)", "Ngala lga (Borno)", "Mafa lga (Borno)", "Mobbar lga (Borno)"],
+                datasets: [{ label: 'Calculated Risk Score', data: [354.0, 320.1, 224.3, 220.7, 197.2, 190.5, 173.8, 145.1, 132.0, 122.5], backgroundColor: 'rgba(220, 53, 69, 0.85)' }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+        });
+
+        new Chart(document.getElementById('townRiskChart'), {
+            type: 'bar',
+            data: {
+                labels: ["Geidam town (Yobe)", "Malam Fatori village (Borno)", "Banki town (Borno)", "Pulka town (Borno)", "Baga village (Borno)", "Gamboru town (Borno)", "Damasak village (Borno)", "Damboa town (Borno)", "Monguno town (Borno)", "Gwoza town (Borno)"],
+                datasets: [{ label: 'Calculated Risk Score', data: [52.7, 51.5, 50.4, 45.5, 43.3, 39.0, 38.8, 37.7, 35.2, 34.4], backgroundColor: 'rgba(253, 126, 20, 0.85)' }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+        });
+    </script>
+
+    <div style="max-width: 1200px; margin: 40px auto 20px; padding: 20px; background: #fff; border-left: 5px solid #17a2b8; border-radius: 4px; font-size: 1.05em; color: #333; line-height: 1.6; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <h3 style="margin-top: 0; color: #17a2b8;">Context & Conclusion</h3>
+        <p>Children in conflict-affected regions of North-East Nigeria—particularly Borno, Adamawa, and Yobe (BAY) states—face severe and uneven barriers to education access. Armed conflict trigged by Boko Haram which means Western Education is prohibited in Hausa has damaged school infrastructure, displaced millions of people, and created persistent insecurity that limits safe access to existing schools.</p>
+        <p>While education actors, including EBI, maintain strong field presence and local relationships, decision-making about where to prioritise interventions remains constrained by fragmented information flows and limited system-wide visibility.<br>
+        This dashboard provides systemic, data-driven analysis at a glance to suggest priority intervention zones.<br>
+        It also highlights <b>when</b> armed conflict can occur and <b>where</b> it is highly likely to occur.</p>
+        
+        <h4 style="margin-bottom: 5px;">Methodology Notes</h4>
+        <ul style="margin-top: 5px; padding-left: 20px;">
+            <li><strong>Education Access Gap:</strong> Calculated by dividing the 2022 LGA population projections by the number of currently operational schools in that LGA.</li>
+            <li><strong>Predictive Risk Score:</strong> Derived from conflict event data (2020-2024). The formula heavily weights recent momentum (attacks in the last 18 months count double) and overall intensity (adding a fraction of total fatalities) to historical frequency.</li>
+            <li><strong>Holiday Trends:</strong> Analyzed using a 7-day window (3 days prior, the day of, and 3 days post-event) around major recognized public and religious holidays in Nigeria to identify tactical spikes.</li>
+        </ul>
+    </div>
+
+    <div style="max-width: 1200px; margin: 20px auto; padding: 20px; background: #e9ecef; border-radius: 8px; font-size: 0.9em; color: #555;">
+        <h3 style="margin-top: 0; color: #333;">Data Sources</h3>
+        <ul style="margin-bottom: 0; padding-left: 20px;">
+            <li><b>School Locations & Coordinates:</b> GRID3 (Geo-Referenced Infrastructure and Demographic Data for Development), circa 2018-2020.</li>
+            <li><b>School Operational Status:</b> iMMAP / Nigeria Education Cluster, "North East Nigeria School List", Status as of June 2019. (Available via Humanitarian Data Exchange).</li>
+            <li><b>Population Data:</b> National Bureau of Statistics (NBS) & National Population Commission (NPC), 2022 LGA Population Projections.</li>
+            <li><b>Conflict Data:</b> ACLED (Armed Conflict Location & Event Data Project) / UCDP (Uppsala Conflict Data Program). Filtered for events occurring between January 1, 2020, and December 31, 2024.</li>
+            <li><b>IDP Locations:</b> IOM DTM (Displacement Tracking Matrix) Nigeria, Site Assessment Round 50, April 2026.</li>
+        </ul>
+    </div>
+</body>
+</html>
