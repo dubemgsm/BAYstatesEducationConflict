@@ -136,29 +136,53 @@
                     .bindPopup(`<b>${state}</b><br>Analysis Center Point`)
                     .openPopup();
 
-                // 2. Fetch REAL School Data from Overpass API (10km radius)
-                const overpassQuery = `[out:json];node["amenity"~"school|college|university"](around:10000,${lat},${lon});out count;`;
+                // 2. Fetch REAL Data from Overpass API (10km radius)
+                // Querying for Schools, IDP/Refugee Camps, and Health Facilities
+                const overpassQuery = `
+                    [out:json];
+                    (
+                      node["amenity"~"school|college|university"](around:10000,${lat},${lon});
+                      node["place"="refugee_camp"](around:10000,${lat},${lon});
+                      node["social_facility"="refugee_site"](around:10000,${lat},${lon});
+                      node["amenity"~"hospital|clinic"](around:10000,${lat},${lon});
+                    );
+                    out body;
+                `;
                 const schoolRes = await fetch(`https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`);
-                const schoolData = await schoolRes.json();
-                const schoolCount = parseInt(schoolData.elements[0].tags.total) || 0;
+                const infraData = await schoolRes.json();
+                
+                let schools = 0, idps = 0, health = 0;
+                infraData.elements.forEach(el => {
+                    const tags = JSON.stringify(el.tags).toLowerCase();
+                    if (tags.includes("school") || tags.includes("college") || tags.includes("university")) schools++;
+                    else if (tags.includes("refugee")) idps++;
+                    else if (tags.includes("hospital") || tags.includes("clinic")) health++;
+                    
+                    // Add markers for infrastructure found
+                    let color = tags.includes("school") ? "green" : (tags.includes("refugee") ? "orange" : "red");
+                    L.circleMarker([el.lat, el.lon], {radius: 5, color: color}).addTo(map);
+                });
 
-                // 3. Calculate Accuracy-Driven Vulnerability Score
-                // Logic: Lower school density = higher vulnerability
-                // We assume a healthy density for a 10km radius is ~20 schools.
-                let baseVulnerability = Math.max(0, 100 - (schoolCount * 5));
-                // Add a small randomized factor for "Conflict/Security" which we don't have a free global API for yet
-                const simulatedSecurityRisk = Math.floor(Math.random() * 30); 
-                const finalScore = Math.min(95, Math.floor((baseVulnerability * 0.7) + simulatedSecurityRisk));
+                // 3. Fetch Real Population for the Country
+                const popRes = await fetch(`https://restcountries.com/v3.1/name/${encodeURIComponent(country)}`);
+                const popData = await popRes.json();
+                const totalPop = popData[0] ? (popData[0].population / 1000000).toFixed(1) : "??";
 
-                const conflicts = Math.floor(Math.random() * 50) + (finalScore / 2);
+                // 4. Calculate Accuracy-Driven Vulnerability Score
+                let baseVulnerability = 100 - (schools * 3) - (health * 5);
+                if (idps > 0) baseVulnerability += 20;
+                const finalScore = Math.min(95, Math.max(10, Math.floor(baseVulnerability)));
 
                 // Update UI
                 document.getElementById('placeholderPanel').style.display = 'none';
                 document.getElementById('resultsPanel').style.display = 'flex';
                 document.getElementById('resultTitle').innerText = `${state}, ${country}`;
                 document.getElementById('vScore').innerText = `${finalScore}%`;
-                document.getElementById('conflictCount').innerText = Math.floor(conflicts);
-                document.getElementById('accessGap').innerText = `${schoolCount} Schools Found (10km)`;
+                document.getElementById('conflictCount').innerText = `${idps} IDP/Refugee Sites`;
+                document.getElementById('accessGap').innerText = `${schools} Schools, ${health} Health Centers`;
+                
+                const note = document.querySelector('.analysis-panel div[style*="font-size: 12px"]');
+                note.innerHTML = `<strong>Data Insight:</strong> In this 10km zone, we found ${schools} schools and ${health} health centers. ${country} has a total population of ${totalPop}M. Vulnerability is calculated by infrastructure density vs. reported displacement sites.`;
 
                 // Update Chart
                 updateChart(start, end, finalScore);
