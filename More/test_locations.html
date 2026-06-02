@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Other Locations - Vulnerability Analysis</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 600px; margin: 40px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; font-size: 24px; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #555; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        .config-section { background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 25px; border-left: 5px solid #ffc107; }
+        .config-section p { margin: 0 0 10px 0; font-size: 14px; color: #856404; }
+        button { width: 100%; padding: 14px; background-color: #3498db; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #2980b9; }
+        .nav-links { margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }
+        .nav-links a { text-decoration: none; color: #3498db; margin: 0 10px; font-weight: 500; }
+        .nav-links a:hover { text-decoration: underline; }
+        #loading { display: none; text-align: center; margin-top: 20px; color: #3498db; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Test Other Locations</h1>
+        
+        <div class="config-section">
+            <p><strong>Codespaces Setup:</strong> Ensure Port 5000 is set to "Public" in the Ports tab.</p>
+            <label for="backendUrl">Port 5000 Forwarded URL:</label>
+            <input type="text" id="backendUrl" placeholder="https://your-codespace-name-5000.app.github.dev" value="">
+        </div>
+
+        <form id="analysisForm">
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <input type="text" id="country" name="country" value="Nigeria" required>
+            </div>
+            <div class="form-group">
+                <label for="state">State/Region:</label>
+                <input type="text" id="state" name="state" placeholder="e.g. Kano, Lagos, etc." required>
+            </div>
+            <div style="display: flex; gap: 20px;">
+                <div class="form-group" style="flex: 1;">
+                    <label for="start_year">Start Year:</label>
+                    <select id="start_year" name="start_year">
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label for="end_year">End Year:</label>
+                    <select id="end_year" name="end_year">
+                        <option value="2024" selected>2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Generate Analysis</button>
+        </form>
+
+        <div id="loading">Processing analysis... Please wait.</div>
+
+        <div class="nav-links">
+            <a href="../index.html">← Back to Home</a>
+            <a href="../deep_dive.html">Deep Dive</a>
+        </div>
+    </div>
+
+    <script>
+        // Try to auto-detect backend URL if stored
+        const savedUrl = localStorage.getItem('backend_url');
+        if (savedUrl) document.getElementById('backendUrl').value = savedUrl;
+
+        document.getElementById('analysisForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            let backendUrl = document.getElementById('backendUrl').value.trim();
+            if (!backendUrl) {
+                alert("Please provide the forwarded URL for Port 5000");
+                return;
+            }
+            if (backendUrl.endsWith('/')) backendUrl = backendUrl.slice(0, -1);
+            
+            // Save for convenience
+            localStorage.setItem('backend_url', backendUrl);
+            
+            const formData = {
+                country: document.getElementById('country').value,
+                state: document.getElementById('state').value,
+                start_year: document.getElementById('start_year').value,
+                end_year: document.getElementById('end_year').value
+            };
+
+            const loading = document.getElementById('loading');
+            loading.style.display = 'block';
+
+            try {
+                const response = await fetch(`${backendUrl}/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    window.location.href = 'results_map.html';
+                } else {
+                    const err = await response.text();
+                    alert("Error from server: " + err);
+                }
+            } catch (error) {
+                console.error("Fetch error:", error);
+                alert("Failed to connect to the backend. Ensure Port 5000 is Public and the URL is correct.");
+            } finally {
+                loading.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
