@@ -10,7 +10,7 @@
 │   ├───index.html
 │   └───deep_dive.html
 ├───More/
-│   └───index.html (Universal Location Analysis)
+│   └───index.html (Simplified Universal Location Analysis Tool)
 └───scripts/
 
 ## Available Analysis Scripts
@@ -20,7 +20,7 @@
 - `scripts/analyze_conflict_patterns.py`: Generates temporal and seasonal analysis charts.
 - `More/index.html`: A self-contained, serverless tool for global vulnerability analysis using live OpenStreetMap (Overpass API) and RestCountries data.
 
-## Universal Location Analysis
+## Simplified Universal Location Analysis Tool
 The tool located at `More/index.html` allows users to perform real-time vulnerability analysis for any global location. It fetches:
 - **Schools**: Live counts from OpenStreetMap.
 - **IDP/Refugee Sites**: Live data on displacement camps from OpenStreetMap.
