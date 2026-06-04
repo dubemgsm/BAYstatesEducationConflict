@@ -14,6 +14,8 @@
         .dashboard { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1200px; margin: 0 auto; }
         .chart-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .chart-wrapper { position: relative; height: 400px; width: 100%; }
+        .filter-container { text-align: center; margin-bottom: 30px; }
+        #stateFilter { padding: 10px; font-size: 1.1em; border-radius: 5px; border: 1px solid #ccc; background: white; cursor: pointer; }
         @media (min-width: 900px) {
             .dashboard { grid-template-columns: 1fr 1fr; }
             .full-width { grid-column: 1 / -1; }
@@ -25,12 +27,22 @@
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding-bottom: 20px;">
         <a href="index.html" class="nav-btn">🔙 Back to Map</a>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-            <a href="../More/index.html" class="nav-btn" style="background-color: #3498db; border: 2px solid #2980b9;">🌍 Simple test for other locations</a>
+            <a href="More/index.html" class="nav-btn" style="background-color: #3498db; border: 2px solid #2980b9;">🌍 Simple test for other locations</a>
             <a href="https://github.com/dubemgsm/BAYstatesEducationConflict" target="_blank" class="nav-btn" style="background-color: #24292e;"><svg height="16" width="16" viewBox="0 0 16 16" style="fill: white; vertical-align: middle; margin-right: 5px;"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg> View on GitHub</a>
         </div>
     </div>
     
     <h1>Deep Dive: Education & Vulnerability Analysis</h1>
+
+    <div class="filter-container">
+        <label for="stateFilter" style="font-weight: bold; margin-right: 10px;">Filter by State:</label>
+        <select id="stateFilter">
+            <option value="All states">All States</option>
+            <option value="Borno">Borno</option>
+            <option value="Adamawa">Adamawa</option>
+            <option value="Yobe">Yobe</option>
+        </select>
+    </div>
     
     <h2>Section 1: Educational Infrastructure</h2>
     <div class="dashboard">
@@ -94,94 +106,156 @@
     </div>
 
     <script>
-        // --- Infrastructure Charts ---
-        new Chart(document.getElementById('gapChart'), {
-            type: 'bar',
-            data: { labels: ["Askira/Uba (Borno)", "Marte (Borno)", "Abadam (Borno)", "Kala/Balge (Borno)", "Magumeri (Borno)", "Gubio (Borno)", "Ngala (Borno)", "Mobbar (Borno)", "Nganzai (Borno)", "Dikwa (Borno)"], datasets: [{ label: 'People per Open School', data: [210000.0, 189600.0, 146600.0, 89100.0, 41100.0, 36950.0, 34650.0, 34180.0, 29040.0, 25650.0], backgroundColor: 'rgba(220, 53, 69, 0.7)' }] },
-            options: { responsive: true, maintainAspectRatio: false }
+        const allData = {"All states": {"chart1": {"labels": ["Askira/Uba (Borno)", "Marte (Borno)", "Abadam (Borno)", "Kala/Balge (Borno)", "Magumeri (Borno)", "Gubio (Borno)", "Ngala (Borno)", "Mobbar (Borno)", "Nganzai (Borno)", "Dikwa (Borno)"], "data": [210000.0, 189600.0, 146600.0, 89100.0, 41100.0, 36950.0, 34650.0, 34180.0, 29040.0, 25650.0]}, "chart2": {"labels": ["Maiduguri (Borno)", "Fune (Yobe)", "Gwoza (Borno)", "Bama (Borno)", "Jakusko (Yobe)", "Ngala (Borno)", "Damboa (Borno)", "Fufore (Adamawa)", "Potiskum (Yobe)", "Yola North (Adamawa)", "Jere (Borno)", "Yola South (Adamawa)", "Song (Adamawa)", "Kukawa (Borno)", "Demsa (Adamawa)", "Guyuk (Adamawa)", "Ganye (Adamawa)", "Hong (Adamawa)", "Jada (Adamawa)", "Biu (Borno)"], "pop": [791200, 474700, 405200, 395800, 365500, 346500, 341700, 323000, 322100, 308000, 306400, 303000, 301000, 297900, 275100, 272200, 262100, 260900, 259700, 257500], "open": [85, 137, 25, 19, 94, 9, 25, 249, 118, 161, 47, 198, 240, 21, 231, 174, 278, 263, 231, 104]}, "chart3": {"labels": ["Bama (Borno)", "Gwoza (Borno)", "Damboa (Borno)", "Konduga (Borno)", "Kukawa (Borno)", "Abadam (Borno)", "Marte (Borno)", "Ngala (Borno)", "Mafa (Borno)", "Mobbar (Borno)", "Dikwa (Borno)", "Monguno (Borno)", "Gujba (Yobe)", "Kaga (Borno)", "Magumeri (Borno)"], "conflict": [152, 146, 113, 96, 92, 86, 75, 73, 61, 50, 47, 45, 45, 37, 29], "schools": [19, 25, 25, 18, 21, 0, 0, 9, 8, 4, 5, 7, 42, 19, 4]}, "chart4": [222, 138, 128, 136, 114, 112, 107, 132, 137, 144, 147, 124], "chart5": [68, 55, 42, 43, 29, 33, 28], "chart6": {"labels": ["Start of Ramadan", "Good Friday", "Democracy Day", "Christmas Day", "Id el Maulud"], "data": [39, 30, 28, 28, 26]}, "chart7": {"labels": ["Gwoza lga (Borno)", "Bama lga (Borno)", "Damboa lga (Borno)", "Marte lga (Borno)", "Konduga lga (Borno)", "Kukawa lga (Borno)", "Abadam lga (Borno)", "Ngala lga (Borno)", "Mafa lga (Borno)", "Mobbar lga (Borno)"], "data": [354.0, 320.1, 224.3, 220.7, 197.2, 190.5, 173.8, 145.1, 132.0, 122.5]}, "chart8": {"labels": ["Geidam town (Yobe)", "Malam Fatori village (Borno)", "Banki town (Borno)", "Pulka town (Borno)", "Baga village (Borno)", "Gamboru town (Borno)", "Damasak village (Borno)", "Damboa town (Borno)", "Monguno town (Borno)", "Gwoza town (Borno)"], "data": [52.7, 51.5, 50.4, 45.5, 43.3, 39.0, 38.8, 37.7, 35.2, 34.4]}}, "Borno": {"chart1": {"labels": ["Askira/Uba (Borno)", "Marte (Borno)", "Abadam (Borno)", "Kala/Balge (Borno)", "Magumeri (Borno)", "Gubio (Borno)", "Ngala (Borno)", "Mobbar (Borno)", "Nganzai (Borno)", "Dikwa (Borno)"], "data": [210000.0, 189600.0, 146600.0, 89100.0, 41100.0, 36950.0, 34650.0, 34180.0, 29040.0, 25650.0]}, "chart2": {"labels": ["Maiduguri (Borno)", "Gwoza (Borno)", "Bama (Borno)", "Ngala (Borno)", "Damboa (Borno)", "Jere (Borno)", "Kukawa (Borno)", "Biu (Borno)", "Konduga (Borno)", "Gubio (Borno)", "Askira/Uba (Borno)", "Magumeri (Borno)", "Marte (Borno)", "Hawul (Borno)", "Mobbar (Borno)", "Monguno (Borno)", "Dikwa (Borno)", "Mafa (Borno)", "Shani (Borno)", "Abadam (Borno)"], "pop": [791200, 405200, 395800, 346500, 341700, 306400, 297900, 257500, 230500, 221700, 210000, 205500, 189600, 176900, 170900, 160900, 153900, 151800, 148000, 146600], "open": [85, 25, 19, 9, 25, 47, 21, 104, 18, 5, 0, 4, 0, 134, 4, 7, 5, 8, 63, 0]}, "chart3": {"labels": ["Bama (Borno)", "Gwoza (Borno)", "Damboa (Borno)", "Konduga (Borno)", "Kukawa (Borno)", "Abadam (Borno)", "Marte (Borno)", "Ngala (Borno)", "Mafa (Borno)", "Mobbar (Borno)", "Dikwa (Borno)", "Monguno (Borno)", "Kaga (Borno)", "Magumeri (Borno)", "Chibok (Borno)"], "conflict": [152, 146, 113, 96, 92, 86, 75, 73, 61, 50, 47, 45, 37, 29, 27], "schools": [19, 25, 25, 18, 21, 0, 0, 9, 8, 4, 5, 7, 19, 4, 51]}, "chart4": [202, 117, 122, 119, 105, 100, 101, 125, 126, 130, 138, 115], "chart5": [65, 52, 37, 42, 27, 31, 28], "chart6": {"labels": ["Start of Ramadan", "Good Friday", "Democracy Day", "Id el Maulud", "Christmas Day"], "data": [39, 28, 27, 26, 25]}, "chart7": {"labels": ["Gwoza lga (Borno)", "Bama lga (Borno)", "Damboa lga (Borno)", "Marte lga (Borno)", "Konduga lga (Borno)", "Kukawa lga (Borno)", "Abadam lga (Borno)", "Ngala lga (Borno)", "Mafa lga (Borno)", "Mobbar lga (Borno)"], "data": [354.0, 320.1, 224.3, 220.7, 197.2, 190.5, 173.8, 145.1, 132.0, 122.5]}, "chart8": {"labels": ["Malam Fatori village (Borno)", "Banki town (Borno)", "Pulka town (Borno)", "Baga village (Borno)", "Gamboru town (Borno)", "Damasak village (Borno)", "Damboa town (Borno)", "Monguno town (Borno)", "Gwoza town (Borno)", "Gorigi village (Borno)"], "data": [51.5, 50.4, 45.5, 43.3, 39.0, 38.8, 37.7, 35.2, 34.4, 30.0]}}, "Adamawa": {"chart1": {"labels": ["Shelleng (Adamawa)", "Yola North (Adamawa)", "Guyuk (Adamawa)", "Yola South (Adamawa)", "Mubi South (Adamawa)", "Mubi North (Adamawa)", "Maiha (Adamawa)", "Fufore (Adamawa)", "Song (Adamawa)", "Madagali (Adamawa)"], "data": [2120.3703703703704, 1901.2345679012346, 1555.4285714285713, 1522.6130653266332, 1431.4285714285713, 1424.3902439024391, 1327.34375, 1292.0, 1248.9626556016597, 1197.7011494252874]}, "chart2": {"labels": ["Fufore (Adamawa)", "Yola North (Adamawa)", "Yola South (Adamawa)", "Song (Adamawa)", "Demsa (Adamawa)", "Guyuk (Adamawa)", "Ganye (Adamawa)", "Hong (Adamawa)", "Jada (Adamawa)", "Michika (Adamawa)", "Mayo-Belwa (Adamawa)", "Mubi North (Adamawa)", "Shelleng (Adamawa)", "Gombi (Adamawa)", "Madagali (Adamawa)", "Mubi South (Adamawa)", "Girei (Adamawa)", "Lamurde (Adamawa)", "Maiha (Adamawa)", "Numan (Adamawa)"], "pop": [323000, 308000, 303000, 301000, 275100, 272200, 262100, 260900, 259700, 239400, 235600, 233600, 229000, 227900, 208400, 200400, 200200, 171600, 169900, 141200], "open": [249, 161, 198, 240, 231, 174, 278, 263, 231, 238, 261, 163, 107, 192, 173, 139, 203, 146, 127, 151]}, "chart3": {"labels": ["Madagali (Adamawa)", "Lamurde (Adamawa)", "Gombi (Adamawa)", "Hong (Adamawa)", "Michika (Adamawa)", "Demsa (Adamawa)", "Guyuk (Adamawa)", "Maiha (Adamawa)", "Fufore (Adamawa)", "Ganye (Adamawa)", "Girei (Adamawa)", "Jada (Adamawa)", "Mayo-Belwa (Adamawa)", "Mubi North (Adamawa)", "Mubi South (Adamawa)"], "conflict": [7, 5, 3, 3, 3, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], "schools": [173, 146, 192, 263, 238, 231, 174, 127, 249, 278, 203, 231, 261, 163, 139]}, "chart4": [3, 6, 0, 2, 3, 10, 1, 2, 0, 2, 0, 4], "chart5": [2, 0, 2, 0, 2, 0, 0], "chart6": {"labels": ["New Year's Day", "Christmas Day", "Easter Monday", "Democracy Day"], "data": [2, 2, 1, 1]}, "chart7": {"labels": ["Madagali lga (Adamawa)", "Hong lga (Adamawa)", "Gombi lga (Adamawa)", "Michika lga (Adamawa)", "Lamurde lga (Adamawa)", "Demsa lga (Adamawa)", "Maiha lga (Adamawa)", "Guyuk lga (Adamawa)"], "data": [12.6, 6.3, 6.0, 5.2, 5.1, 3.0, 1.1, 1.0]}, "chart8": {"labels": ["Garkida village (Adamawa)", "Kwapre village (Adamawa)", "Kordomun village (Adamawa)", "Kopa village (Adamawa)", "Michika town (Adamawa)", "Madagali town (Adamawa)", "Sabon Gari village (Adamawa)", "Tigno village (Adamawa)", "Dabna village (Adamawa)", "Lafia town (Adamawa)"], "data": [6.0, 5.3, 3.0, 2.7, 2.5, 2.4, 1.6, 1.0, 1.0, 1.0]}}, "Yobe": {"chart1": {"labels": ["Geidam (Yobe)", "Gujba (Yobe)", "Yunusari (Yobe)", "Jakusko (Yobe)", "Fune (Yobe)", "Karasuwa (Yobe)", "Bade (Yobe)", "Potiskum (Yobe)", "Machina (Yobe)", "Tarmuwa (Yobe)"], "data": [4898.0, 4746.511627906977, 4400.0, 3847.3684210526317, 3439.855072463768, 3072.222222222222, 2713.58024691358, 2706.72268907563, 2663.8888888888887, 2654.3478260869565]}, "chart2": {"labels": ["Fune (Yobe)", "Jakusko (Yobe)", "Potiskum (Yobe)", "Geidam (Yobe)", "Nguru (Yobe)", "Bade (Yobe)", "Fika (Yobe)", "Gujba (Yobe)", "Yunusari (Yobe)", "Yusufari (Yobe)", "Bursari (Yobe)", "Karasuwa (Yobe)", "Gulani (Yobe)", "Damaturu (Yobe)", "Nangere (Yobe)", "Tarmuwa (Yobe)", "Machina (Yobe)"], "pop": [474700, 365500, 322100, 244900, 236900, 219800, 215000, 204100, 198000, 174100, 172500, 165900, 162700, 137900, 137600, 122100, 95900], "open": [137, 94, 118, 49, 95, 80, 139, 42, 44, 72, 80, 53, 68, 63, 93, 45, 35]}, "chart3": {"labels": ["Gujba (Yobe)", "Geidam (Yobe)", "Yunusari (Yobe)", "Damaturu (Yobe)", "Tarmuwa (Yobe)", "Bade (Yobe)", "Bursari (Yobe)", "Fune (Yobe)", "Karasuwa (Yobe)", "Fika (Yobe)", "Gulani (Yobe)", "Jakusko (Yobe)", "Machina (Yobe)", "Nangere (Yobe)", "Nguru (Yobe)"], "conflict": [45, 28, 7, 6, 6, 4, 4, 1, 1, 0, 0, 0, 0, 0, 0], "schools": [42, 49, 44, 63, 45, 80, 80, 137, 53, 139, 68, 94, 35, 93, 95]}, "chart4": [17, 15, 6, 15, 6, 2, 5, 5, 11, 12, 9, 5], "chart5": [1, 3, 3, 1, 0, 2, 0], "chart6": {"labels": ["Workers' Day", "Good Friday", "Easter Monday", "Christmas Day", "New Year's Day"], "data": [3, 2, 2, 1, 1]}, "chart7": {"labels": ["Gujba lga (Yobe)", "Geidam lga (Yobe)", "Tarmuwa lga (Yobe)", "Damaturu lga (Yobe)", "Yunusari lga (Yobe)", "Bursari lga (Yobe)", "Bade lga (Yobe)", "Fune lga (Yobe)", "Karasuwa lga (Yobe)"], "data": [108.4, 78.3, 23.6, 17.5, 9.5, 8.8, 4.6, 3.1, 3.1]}, "chart8": {"labels": ["Geidam town (Yobe)", "Buni Yadi town (Yobe)", "Goniri village (Yobe)", "Mafa village (Yobe)", "Buni village (Yobe)", "Kukareta village (Yobe)", "Gujba town (Yobe)", "Azare village (Yobe)", "Bujimirum village (Yobe)", "Babban Gida village (Yobe)"], "data": [52.7, 20.4, 17.4, 16.3, 15.1, 12.9, 10.2, 9.4, 8.2, 7.3]}}};
+        let charts = {};
+
+        function initCharts(state) {
+            const data = allData[state];
+
+            // Chart 1
+            charts.gapChart = new Chart(document.getElementById('gapChart'), {
+                type: 'bar',
+                data: { labels: data.chart1.labels, datasets: [{ label: 'People per Open School', data: data.chart1.data, backgroundColor: 'rgba(220, 53, 69, 0.7)' }] },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Chart 2
+            charts.popSchoolChart = new Chart(document.getElementById('popSchoolChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.chart2.labels,
+                    datasets: [
+                        { label: 'Population', data: data.chart2.pop, backgroundColor: 'rgba(54, 162, 235, 0.6)', yAxisID: 'y' },
+                        { label: 'Open Schools', data: data.chart2.open, type: 'line', borderColor: '#28a745', yAxisID: 'y1' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { position: 'left' }, y1: { position: 'right' } } }
+            });
+
+            // Chart 3
+            charts.conflictSchoolChart = new Chart(document.getElementById('conflictSchoolChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.chart3.labels,
+                    datasets: [
+                        { label: 'Conflict Events (2020-2024)', data: data.chart3.conflict, backgroundColor: 'rgba(220, 53, 69, 0.7)', yAxisID: 'y' },
+                        { label: 'Open Schools', data: data.chart3.schools, type: 'line', borderColor: '#28a745', backgroundColor: '#28a745', borderWidth: 3, tension: 0.1, yAxisID: 'y1' }
+                    ]
+                },
+                options: { 
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: { 
+                        y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'Conflict Events' } },
+                        y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Number of Schools' }, grid: { drawOnChartArea: false } }
+                    } 
+                }
+            });
+
+            // Chart 4
+            charts.monthChart = new Chart(document.getElementById('monthChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{ label: 'Total Historical Conflicts', data: data.chart4, borderColor: '#6f42c1', backgroundColor: 'rgba(111, 66, 193, 0.2)', fill: true, tension: 0.3 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Chart 5
+            charts.timingChart = new Chart(document.getElementById('timingChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['3 Days Before', '2 Days Before', '1 Day Before', 'On the Day', '1 Day After', '2 Days After', '3 Days After'],
+                    datasets: [{ 
+                        label: 'Conflict Events', 
+                        data: data.chart5, 
+                        backgroundColor: ['#dc3545', '#ffc107', '#ffc107', '#28a745', '#17a2b8', '#17a2b8', '#17a2b8'] 
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // Chart 6
+            charts.holidayChart = new Chart(document.getElementById('holidayChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.chart6.labels,
+                    datasets: [{ label: 'Conflict Events (Within 7-day window)', data: data.chart6.data, backgroundColor: '#6610f2' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+            });
+
+            // Chart 7
+            charts.lgaRiskChart = new Chart(document.getElementById('lgaRiskChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.chart7.labels,
+                    datasets: [{ label: 'Calculated Risk Score', data: data.chart7.data, backgroundColor: 'rgba(220, 53, 69, 0.85)' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+            });
+
+            // Chart 8
+            charts.townRiskChart = new Chart(document.getElementById('townRiskChart'), {
+                type: 'bar',
+                data: {
+                    labels: data.chart8.labels,
+                    datasets: [{ label: 'Calculated Risk Score', data: data.chart8.data, backgroundColor: 'rgba(253, 126, 20, 0.85)' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+            });
+        }
+
+        function updateCharts(state) {
+            const data = allData[state];
+
+            // Update Chart 1
+            charts.gapChart.data.labels = data.chart1.labels;
+            charts.gapChart.data.datasets[0].data = data.chart1.data;
+            charts.gapChart.update();
+
+            // Update Chart 2
+            charts.popSchoolChart.data.labels = data.chart2.labels;
+            charts.popSchoolChart.data.datasets[0].data = data.chart2.pop;
+            charts.popSchoolChart.data.datasets[1].data = data.chart2.open;
+            charts.popSchoolChart.update();
+
+            // Update Chart 3
+            charts.conflictSchoolChart.data.labels = data.chart3.labels;
+            charts.conflictSchoolChart.data.datasets[0].data = data.chart3.conflict;
+            charts.conflictSchoolChart.data.datasets[1].data = data.chart3.schools;
+            charts.conflictSchoolChart.update();
+
+            // Update Chart 4
+            charts.monthChart.data.datasets[0].data = data.chart4;
+            charts.monthChart.update();
+
+            // Update Chart 5
+            charts.timingChart.data.datasets[0].data = data.chart5;
+            charts.timingChart.update();
+
+            // Update Chart 6
+            charts.holidayChart.data.labels = data.chart6.labels;
+            charts.holidayChart.data.datasets[0].data = data.chart6.data;
+            charts.holidayChart.update();
+
+            // Update Chart 7
+            charts.lgaRiskChart.data.labels = data.chart7.labels;
+            charts.lgaRiskChart.data.datasets[0].data = data.chart7.data;
+            charts.lgaRiskChart.update();
+
+            // Update Chart 8
+            charts.townRiskChart.data.labels = data.chart8.labels;
+            charts.townRiskChart.data.datasets[0].data = data.chart8.data;
+            charts.townRiskChart.update();
+        }
+
+        document.getElementById('stateFilter').addEventListener('change', function(e) {
+            updateCharts(e.target.value);
         });
 
-        new Chart(document.getElementById('popSchoolChart'), {
-            type: 'bar',
-            data: {
-                labels: ["Maiduguri (Borno)", "Fune (Yobe)", "Gwoza (Borno)", "Bama (Borno)", "Jakusko (Yobe)", "Ngala (Borno)", "Damboa (Borno)", "Fufore (Adamawa)", "Potiskum (Yobe)", "Yola North (Adamawa)", "Jere (Borno)", "Yola South (Adamawa)", "Song (Adamawa)", "Kukawa (Borno)", "Demsa (Adamawa)", "Guyuk (Adamawa)", "Ganye (Adamawa)", "Hong (Adamawa)", "Jada (Adamawa)", "Biu (Borno)"],
-                datasets: [
-                    { label: 'Population', data: [791200, 474700, 405200, 395800, 365500, 346500, 341700, 323000, 322100, 308000, 306400, 303000, 301000, 297900, 275100, 272200, 262100, 260900, 259700, 257500], backgroundColor: 'rgba(54, 162, 235, 0.6)', yAxisID: 'y' },
-                    { label: 'Open Schools', data: [85, 137, 25, 19, 94, 9, 25, 249, 118, 161, 47, 198, 240, 21, 231, 174, 278, 263, 231, 104], type: 'line', borderColor: '#28a745', yAxisID: 'y1' }
-                ]
-            },
-            options: { responsive: true, maintainAspectRatio: false, scales: { y: { position: 'left' }, y1: { position: 'right' } } }
-        });
-
-        new Chart(document.getElementById('conflictSchoolChart'), {
-            type: 'bar',
-            data: {
-                labels: ["Bama (Borno)", "Gwoza (Borno)", "Damboa (Borno)", "Konduga (Borno)", "Kukawa (Borno)", "Abadam (Borno)", "Marte (Borno)", "Ngala (Borno)", "Mafa (Borno)", "Mobbar (Borno)", "Dikwa (Borno)", "Monguno (Borno)", "Gujba (Yobe)", "Kaga (Borno)", "Magumeri (Borno)"],
-                datasets: [
-                    { label: 'Conflict Events (2020-2024)', data: [152, 146, 113, 96, 92, 86, 75, 73, 61, 50, 47, 45, 45, 37, 29], backgroundColor: 'rgba(220, 53, 69, 0.7)', yAxisID: 'y' },
-                    { label: 'Open Schools', data: [19, 25, 25, 18, 21, 0, 0, 9, 8, 4, 5, 7, 42, 19, 4], type: 'line', borderColor: '#28a745', backgroundColor: '#28a745', borderWidth: 3, tension: 0.1, yAxisID: 'y1' }
-                ]
-            },
-            options: { 
-                responsive: true, maintainAspectRatio: false,
-                interaction: { mode: 'index', intersect: false },
-                scales: { 
-                    y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'Conflict Events' } },
-                    y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Number of Schools' }, grid: { drawOnChartArea: false } }
-                } 
-            }
-        });
-
-        // --- Conflict Pattern Charts ---
-        new Chart(document.getElementById('monthChart'), {
-            type: 'line',
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{ label: 'Total Historical Conflicts', data: [222, 138, 128, 136, 114, 112, 107, 132, 137, 144, 147, 124], borderColor: '#6f42c1', backgroundColor: 'rgba(111, 66, 193, 0.2)', fill: true, tension: 0.3 }]
-            },
-            options: { responsive: true, maintainAspectRatio: false }
-        });
-
-        new Chart(document.getElementById('timingChart'), {
-            type: 'bar',
-            data: {
-                labels: ["3 Days Before", "2 Days Before", "1 Day Before", "On the Day", "1 Day After", "2 Days After", "3 Days After"],
-                datasets: [{ 
-                    label: 'Conflict Events', 
-                    data: [68, 55, 42, 43, 29, 33, 28], 
-                    backgroundColor: ['#dc3545', '#ffc107', '#ffc107', '#28a745', '#17a2b8', '#17a2b8', '#17a2b8'] 
-                }]
-            },
-            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-        });
-
-        new Chart(document.getElementById('holidayChart'), {
-            type: 'bar',
-            data: {
-                labels: ["Start of Ramadan", "Good Friday", "Democracy Day", "Christmas Day", "Id el Maulud"],
-                datasets: [{ label: 'Conflict Events (Within 7-day window)', data: [39, 30, 28, 28, 26], backgroundColor: '#6610f2' }]
-            },
-            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
-        });
-
-        // --- Predictive Risk Charts ---
-        new Chart(document.getElementById('lgaRiskChart'), {
-            type: 'bar',
-            data: {
-                labels: ["Gwoza lga (Borno)", "Bama lga (Borno)", "Damboa lga (Borno)", "Marte lga (Borno)", "Konduga lga (Borno)", "Kukawa lga (Borno)", "Abadam lga (Borno)", "Ngala lga (Borno)", "Mafa lga (Borno)", "Mobbar lga (Borno)"],
-                datasets: [{ label: 'Calculated Risk Score', data: [354.0, 320.1, 224.3, 220.7, 197.2, 190.5, 173.8, 145.1, 132.0, 122.5], backgroundColor: 'rgba(220, 53, 69, 0.85)' }]
-            },
-            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
-        });
-
-        new Chart(document.getElementById('townRiskChart'), {
-            type: 'bar',
-            data: {
-                labels: ["Geidam town (Yobe)", "Malam Fatori village (Borno)", "Banki town (Borno)", "Pulka town (Borno)", "Baga village (Borno)", "Gamboru town (Borno)", "Damasak village (Borno)", "Damboa town (Borno)", "Monguno town (Borno)", "Gwoza town (Borno)"],
-                datasets: [{ label: 'Calculated Risk Score', data: [52.7, 51.5, 50.4, 45.5, 43.3, 39.0, 38.8, 37.7, 35.2, 34.4], backgroundColor: 'rgba(253, 126, 20, 0.85)' }]
-            },
-            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
-        });
+        initCharts('All states');
     </script>
 
     <div style="max-width: 1200px; margin: 40px auto 20px; padding: 20px; background: #fff; border-left: 5px solid #17a2b8; border-radius: 4px; font-size: 1.05em; color: #333; line-height: 1.6; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">

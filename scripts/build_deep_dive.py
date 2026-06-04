@@ -7,44 +7,35 @@ from datetime import timedelta
 stats_csv = "data/clean/bay_lga_vulnerability_stats.csv"
 conflict_csv = "data/raw/conflict_data_nga.csv"
 
-df = pd.read_csv(stats_csv)
-conflict_df = pd.read_csv(conflict_csv, low_memory=False)
+df_all = pd.read_csv(stats_csv)
+conflict_df_all = pd.read_csv(conflict_csv, low_memory=False)
 
-# --- 1. Existing Analysis (Education Gap) ---
-df['edu_access_gap'] = df['Population'] / (df['Open_Schools'] + 1)
+# Pre-process conflict data once for efficiency
+bay_states_map = {
+    "All states": ['Borno state', 'Adamawa state', 'Yobe state'],
+    "Borno": ['Borno state'],
+    "Adamawa": ['Adamawa state'],
+    "Yobe": ['Yobe state']
+}
 
-top_10_gap = df.nlargest(10, 'edu_access_gap')[['LGA', 'State', 'edu_access_gap']]
-chart1_labels = [f"{row['LGA']} ({row['State']})" for _, row in top_10_gap.iterrows()]
-chart1_data = top_10_gap['edu_access_gap'].tolist()
-
-top_20_pop = df.nlargest(20, 'Population')[['LGA', 'State', 'Population', 'Open_Schools', 'Closed_Schools']]
-chart2_labels = [f"{row['LGA']} ({row['State']})" for _, row in top_20_pop.iterrows()]
-chart2_pop = top_20_pop['Population'].tolist()
-chart2_open = top_20_pop['Open_Schools'].tolist()
-chart2_closed = top_20_pop['Closed_Schools'].tolist()
-
-# Chart 3: Top 15 LGAs by Conflict Intensity vs Open Schools
-top_15_conflict = df.nlargest(15, 'Conflict_Events')[['LGA', 'State', 'Conflict_Events', 'Open_Schools']]
-chart3_labels = [f"{row['LGA']} ({row['State']})" for _, row in top_15_conflict.iterrows()]
-chart3_conflict = top_15_conflict['Conflict_Events'].tolist()
-chart3_schools = top_15_conflict['Open_Schools'].tolist()
-
-# --- 2. New Conflict Trend Analysis ---
-bay_states = ['Borno state', 'Adamawa state', 'Yobe state']
-bay_conflicts = conflict_df[
-    (conflict_df['adm_1'].isin(bay_states)) & 
-    (conflict_df['year'] >= 2020) & 
-    (conflict_df['year'] <= 2024)
+# Pre-filter and prepare conflict data
+bay_conflicts_full = conflict_df_all[
+    (conflict_df_all['adm_1'].isin(bay_states_map["All states"])) & 
+    (conflict_df_all['year'] >= 2020) & 
+    (conflict_df_all['year'] <= 2024)
 ].copy()
-bay_conflicts['date_start'] = pd.to_datetime(bay_conflicts['date_start'], errors='coerce')
-bay_conflicts = bay_conflicts.dropna(subset=['date_start'])
-bay_conflicts['year'] = bay_conflicts['date_start'].dt.year
-bay_conflicts['month'] = bay_conflicts['date_start'].dt.month
-bay_conflicts['date_only'] = bay_conflicts['date_start'].dt.date
+bay_conflicts_full['date_start'] = pd.to_datetime(bay_conflicts_full['date_start'], errors='coerce')
+bay_conflicts_full = bay_conflicts_full.dropna(subset=['date_start'])
+bay_conflicts_full['year'] = bay_conflicts_full['date_start'].dt.year
+bay_conflicts_full['month'] = bay_conflicts_full['date_start'].dt.month
+bay_conflicts_full['date_only'] = bay_conflicts_full['date_start'].dt.date
+bay_conflicts_full['total_deaths'] = bay_conflicts_full['deaths_a'] + bay_conflicts_full['deaths_b'] + bay_conflicts_full['deaths_civilians']
+recent_cutoff = pd.to_datetime('2023-07-01')
+bay_conflicts_full['is_recent'] = bay_conflicts_full['date_start'] >= recent_cutoff
 
-min_year = int(bay_conflicts['year'].min())
-max_year = int(bay_conflicts['year'].max())
-
+# Prepare Holidays
+min_year = int(bay_conflicts_full['year'].min())
+max_year = int(bay_conflicts_full['year'].max())
 ng_holidays = holidays.CountryHoliday('NG', years=range(min_year, max_year + 1))
 
 holiday_dates = {}
@@ -65,49 +56,95 @@ def get_holiday_offset(event_date):
             return offset, holiday_dates[check_date]
     return None, None
 
-bay_conflicts['holiday_info'] = bay_conflicts['date_only'].apply(get_holiday_offset)
-bay_conflicts['offset'] = bay_conflicts['holiday_info'].apply(lambda x: x[0])
-bay_conflicts['holiday_name'] = bay_conflicts['holiday_info'].apply(lambda x: x[1])
+bay_conflicts_full['holiday_info'] = bay_conflicts_full['date_only'].apply(get_holiday_offset)
+bay_conflicts_full['offset'] = bay_conflicts_full['holiday_info'].apply(lambda x: x[0])
+bay_conflicts_full['holiday_name'] = bay_conflicts_full['holiday_info'].apply(lambda x: x[1])
 
-# Data for Chart 4: Monthly Seasonality
-monthly_counts = bay_conflicts.groupby('month').size()
-month_labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-chart4_data = [int(monthly_counts.get(i, 0)) for i in range(1, 13)]
+def generate_state_data(state_key):
+    # Filter stats
+    if state_key == "All states":
+        df = df_all.copy()
+        conflicts = bay_conflicts_full.copy()
+    else:
+        df = df_all[df_all['State'] == state_key].copy()
+        conflicts = bay_conflicts_full[bay_conflicts_full['adm_1'] == f"{state_key} state"].copy()
 
-# Data for Chart 5: Days to Holiday
-offset_counts = bay_conflicts['offset'].value_counts().sort_index()
-chart5_labels = ['3 Days Before', '2 Days Before', '1 Day Before', 'On the Day', '1 Day After', '2 Days After', '3 Days After']
-chart5_data = [int(offset_counts.get(i, 0)) for i in range(-3, 4)]
+    # Chart 1: Education Access Gap
+    df['edu_access_gap'] = df['Population'] / (df['Open_Schools'] + 1)
+    top_10_gap = df.nlargest(10, 'edu_access_gap')[['LGA', 'State', 'edu_access_gap']]
+    chart1 = {
+        "labels": [f"{row['LGA']} ({row['State']})" for _, row in top_10_gap.iterrows()],
+        "data": top_10_gap['edu_access_gap'].tolist()
+    }
 
-# Data for Chart 6: Top Holidays
-top_holidays = bay_conflicts['holiday_name'].value_counts().head(5)
-chart6_labels = top_holidays.index.tolist()
-chart6_data = [int(x) for x in top_holidays.values.tolist()]
+    # Chart 2: Population vs Schools
+    top_20_pop = df.nlargest(20, 'Population')[['LGA', 'State', 'Population', 'Open_Schools', 'Closed_Schools']]
+    chart2 = {
+        "labels": [f"{row['LGA']} ({row['State']})" for _, row in top_20_pop.iterrows()],
+        "pop": top_20_pop['Population'].tolist(),
+        "open": top_20_pop['Open_Schools'].tolist()
+    }
 
-# --- 3. Predictive Risk Analysis ---
-bay_conflicts['total_deaths'] = bay_conflicts['deaths_a'] + bay_conflicts['deaths_b'] + bay_conflicts['deaths_civilians']
-recent_cutoff = pd.to_datetime('2023-07-01')
-bay_conflicts['is_recent'] = bay_conflicts['date_start'] >= recent_cutoff
+    # Chart 3: Conflict Intensity vs Schools
+    top_15_conflict = df.nlargest(15, 'Conflict_Events')[['LGA', 'State', 'Conflict_Events', 'Open_Schools']]
+    chart3 = {
+        "labels": [f"{row['LGA']} ({row['State']})" for _, row in top_15_conflict.iterrows()],
+        "conflict": top_15_conflict['Conflict_Events'].tolist(),
+        "schools": top_15_conflict['Open_Schools'].tolist()
+    }
 
-# LGA Risk
-lga_risk = bay_conflicts.groupby(['adm_1', 'adm_2']).agg(
-    total_events=('id', 'count'), recent_events=('is_recent', 'sum'), total_deaths=('total_deaths', 'sum')
-).reset_index()
-lga_risk['risk_score'] = (lga_risk['recent_events'] * 2) + lga_risk['total_events'] + (lga_risk['total_deaths'] / 10)
-lga_risk = lga_risk.sort_values(by='risk_score', ascending=False).head(10)
-chart7_labels = [f"{row['adm_2']} ({row['adm_1'].replace(' state', '')})" for _, row in lga_risk.iterrows()]
-chart7_data = [float(x) for x in lga_risk['risk_score'].tolist()]
+    # Chart 4: Monthly Seasonality
+    monthly_counts = conflicts.groupby('month').size()
+    chart4 = [int(monthly_counts.get(i, 0)) for i in range(1, 13)]
 
-# Town Risk
-towns_df = bay_conflicts[bay_conflicts['where_prec'] <= 2]
-town_risk = towns_df.groupby(['adm_1', 'adm_2', 'where_coordinates']).agg(
-    total_events=('id', 'count'), recent_events=('is_recent', 'sum'), total_deaths=('total_deaths', 'sum')
-).reset_index()
-town_risk['risk_score'] = (town_risk['recent_events'] * 2) + town_risk['total_events'] + (town_risk['total_deaths'] / 10)
-town_risk = town_risk.sort_values(by='risk_score', ascending=False).head(10)
-chart8_labels = [f"{row['where_coordinates']} ({row['adm_1'].replace(' state', '')})" for _, row in town_risk.iterrows()]
-chart8_data = [float(x) for x in town_risk['risk_score'].tolist()]
+    # Chart 5: Days to Holiday
+    offset_counts = conflicts['offset'].value_counts().sort_index()
+    chart5 = [int(offset_counts.get(i, 0)) for i in range(-3, 4)]
 
+    # Chart 6: Top Holidays
+    top_holidays = conflicts['holiday_name'].value_counts().head(5)
+    chart6 = {
+        "labels": top_holidays.index.tolist(),
+        "data": [int(x) for x in top_holidays.values.tolist()]
+    }
+
+    # Chart 7: LGA Risk
+    lga_risk = conflicts.groupby(['adm_1', 'adm_2']).agg(
+        total_events=('id', 'count'), recent_events=('is_recent', 'sum'), total_deaths=('total_deaths', 'sum')
+    ).reset_index()
+    lga_risk['risk_score'] = (lga_risk['recent_events'] * 2) + lga_risk['total_events'] + (lga_risk['total_deaths'] / 10)
+    lga_risk = lga_risk.sort_values(by='risk_score', ascending=False).head(10)
+    chart7 = {
+        "labels": [f"{row['adm_2']} ({row['adm_1'].replace(' state', '')})" for _, row in lga_risk.iterrows()],
+        "data": [float(x) for x in lga_risk['risk_score'].tolist()]
+    }
+
+    # Chart 8: Town Risk
+    towns_df = conflicts[conflicts['where_prec'] <= 2]
+    town_risk = towns_df.groupby(['adm_1', 'adm_2', 'where_coordinates']).agg(
+        total_events=('id', 'count'), recent_events=('is_recent', 'sum'), total_deaths=('total_deaths', 'sum')
+    ).reset_index()
+    town_risk['risk_score'] = (town_risk['recent_events'] * 2) + town_risk['total_events'] + (town_risk['total_deaths'] / 10)
+    town_risk = town_risk.sort_values(by='risk_score', ascending=False).head(10)
+    chart8 = {
+        "labels": [f"{row['where_coordinates']} ({row['adm_1'].replace(' state', '')})" for _, row in town_risk.iterrows()],
+        "data": [float(x) for x in town_risk['risk_score'].tolist()]
+    }
+
+    return {
+        "chart1": chart1,
+        "chart2": chart2,
+        "chart3": chart3,
+        "chart4": chart4,
+        "chart5": chart5,
+        "chart6": chart6,
+        "chart7": chart7,
+        "chart8": chart8
+    }
+
+all_states_data = {}
+for state in ["All states", "Borno", "Adamawa", "Yobe"]:
+    all_states_data[state] = generate_state_data(state)
 
 # --- HTML Template ---
 html_template = f"""<!DOCTYPE html>
@@ -126,6 +163,8 @@ html_template = f"""<!DOCTYPE html>
         .dashboard {{ display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1200px; margin: 0 auto; }}
         .chart-container {{ background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }}
         .chart-wrapper {{ position: relative; height: 400px; width: 100%; }}
+        .filter-container {{ text-align: center; margin-bottom: 30px; }}
+        #stateFilter {{ padding: 10px; font-size: 1.1em; border-radius: 5px; border: 1px solid #ccc; background: white; cursor: pointer; }}
         @media (min-width: 900px) {{
             .dashboard {{ grid-template-columns: 1fr 1fr; }}
             .full-width {{ grid-column: 1 / -1; }}
@@ -143,6 +182,16 @@ html_template = f"""<!DOCTYPE html>
     </div>
     
     <h1>Deep Dive: Education & Vulnerability Analysis</h1>
+
+    <div class="filter-container">
+        <label for="stateFilter" style="font-weight: bold; margin-right: 10px;">Filter by State:</label>
+        <select id="stateFilter">
+            <option value="All states">All States</option>
+            <option value="Borno">Borno</option>
+            <option value="Adamawa">Adamawa</option>
+            <option value="Yobe">Yobe</option>
+        </select>
+    </div>
     
     <h2>Section 1: Educational Infrastructure</h2>
     <div class="dashboard">
@@ -206,94 +255,156 @@ html_template = f"""<!DOCTYPE html>
     </div>
 
     <script>
-        // --- Infrastructure Charts ---
-        new Chart(document.getElementById('gapChart'), {{
-            type: 'bar',
-            data: {{ labels: {json.dumps(chart1_labels)}, datasets: [{{ label: 'People per Open School', data: {json.dumps(chart1_data)}, backgroundColor: 'rgba(220, 53, 69, 0.7)' }}] }},
-            options: {{ responsive: true, maintainAspectRatio: false }}
+        const allData = {json.dumps(all_states_data)};
+        let charts = {{}};
+
+        function initCharts(state) {{
+            const data = allData[state];
+
+            // Chart 1
+            charts.gapChart = new Chart(document.getElementById('gapChart'), {{
+                type: 'bar',
+                data: {{ labels: data.chart1.labels, datasets: [{{ label: 'People per Open School', data: data.chart1.data, backgroundColor: 'rgba(220, 53, 69, 0.7)' }}] }},
+                options: {{ responsive: true, maintainAspectRatio: false }}
+            }});
+
+            // Chart 2
+            charts.popSchoolChart = new Chart(document.getElementById('popSchoolChart'), {{
+                type: 'bar',
+                data: {{
+                    labels: data.chart2.labels,
+                    datasets: [
+                        {{ label: 'Population', data: data.chart2.pop, backgroundColor: 'rgba(54, 162, 235, 0.6)', yAxisID: 'y' }},
+                        {{ label: 'Open Schools', data: data.chart2.open, type: 'line', borderColor: '#28a745', yAxisID: 'y1' }}
+                    ]
+                }},
+                options: {{ responsive: true, maintainAspectRatio: false, scales: {{ y: {{ position: 'left' }}, y1: {{ position: 'right' }} }} }}
+            }});
+
+            // Chart 3
+            charts.conflictSchoolChart = new Chart(document.getElementById('conflictSchoolChart'), {{
+                type: 'bar',
+                data: {{
+                    labels: data.chart3.labels,
+                    datasets: [
+                        {{ label: 'Conflict Events (2020-2024)', data: data.chart3.conflict, backgroundColor: 'rgba(220, 53, 69, 0.7)', yAxisID: 'y' }},
+                        {{ label: 'Open Schools', data: data.chart3.schools, type: 'line', borderColor: '#28a745', backgroundColor: '#28a745', borderWidth: 3, tension: 0.1, yAxisID: 'y1' }}
+                    ]
+                }},
+                options: {{ 
+                    responsive: true, maintainAspectRatio: false,
+                    interaction: {{ mode: 'index', intersect: false }},
+                    scales: {{ 
+                        y: {{ type: 'linear', display: true, position: 'left', title: {{ display: true, text: 'Conflict Events' }} }},
+                        y1: {{ type: 'linear', display: true, position: 'right', title: {{ display: true, text: 'Number of Schools' }}, grid: {{ drawOnChartArea: false }} }}
+                    }} 
+                }}
+            }});
+
+            // Chart 4
+            charts.monthChart = new Chart(document.getElementById('monthChart'), {{
+                type: 'line',
+                data: {{
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{{ label: 'Total Historical Conflicts', data: data.chart4, borderColor: '#6f42c1', backgroundColor: 'rgba(111, 66, 193, 0.2)', fill: true, tension: 0.3 }}]
+                }},
+                options: {{ responsive: true, maintainAspectRatio: false }}
+            }});
+
+            // Chart 5
+            charts.timingChart = new Chart(document.getElementById('timingChart'), {{
+                type: 'bar',
+                data: {{
+                    labels: ['3 Days Before', '2 Days Before', '1 Day Before', 'On the Day', '1 Day After', '2 Days After', '3 Days After'],
+                    datasets: [{{ 
+                        label: 'Conflict Events', 
+                        data: data.chart5, 
+                        backgroundColor: ['#dc3545', '#ffc107', '#ffc107', '#28a745', '#17a2b8', '#17a2b8', '#17a2b8'] 
+                    }}]
+                }},
+                options: {{ responsive: true, maintainAspectRatio: false, plugins: {{ legend: {{ display: false }} }} }}
+            }});
+
+            // Chart 6
+            charts.holidayChart = new Chart(document.getElementById('holidayChart'), {{
+                type: 'bar',
+                data: {{
+                    labels: data.chart6.labels,
+                    datasets: [{{ label: 'Conflict Events (Within 7-day window)', data: data.chart6.data, backgroundColor: '#6610f2' }}]
+                }},
+                options: {{ responsive: true, maintainAspectRatio: false, indexAxis: 'y' }}
+            }});
+
+            // Chart 7
+            charts.lgaRiskChart = new Chart(document.getElementById('lgaRiskChart'), {{
+                type: 'bar',
+                data: {{
+                    labels: data.chart7.labels,
+                    datasets: [{{ label: 'Calculated Risk Score', data: data.chart7.data, backgroundColor: 'rgba(220, 53, 69, 0.85)' }}]
+                }},
+                options: {{ responsive: true, maintainAspectRatio: false, indexAxis: 'y' }}
+            }});
+
+            // Chart 8
+            charts.townRiskChart = new Chart(document.getElementById('townRiskChart'), {{
+                type: 'bar',
+                data: {{
+                    labels: data.chart8.labels,
+                    datasets: [{{ label: 'Calculated Risk Score', data: data.chart8.data, backgroundColor: 'rgba(253, 126, 20, 0.85)' }}]
+                }},
+                options: {{ responsive: true, maintainAspectRatio: false, indexAxis: 'y' }}
+            }});
+        }}
+
+        function updateCharts(state) {{
+            const data = allData[state];
+
+            // Update Chart 1
+            charts.gapChart.data.labels = data.chart1.labels;
+            charts.gapChart.data.datasets[0].data = data.chart1.data;
+            charts.gapChart.update();
+
+            // Update Chart 2
+            charts.popSchoolChart.data.labels = data.chart2.labels;
+            charts.popSchoolChart.data.datasets[0].data = data.chart2.pop;
+            charts.popSchoolChart.data.datasets[1].data = data.chart2.open;
+            charts.popSchoolChart.update();
+
+            // Update Chart 3
+            charts.conflictSchoolChart.data.labels = data.chart3.labels;
+            charts.conflictSchoolChart.data.datasets[0].data = data.chart3.conflict;
+            charts.conflictSchoolChart.data.datasets[1].data = data.chart3.schools;
+            charts.conflictSchoolChart.update();
+
+            // Update Chart 4
+            charts.monthChart.data.datasets[0].data = data.chart4;
+            charts.monthChart.update();
+
+            // Update Chart 5
+            charts.timingChart.data.datasets[0].data = data.chart5;
+            charts.timingChart.update();
+
+            // Update Chart 6
+            charts.holidayChart.data.labels = data.chart6.labels;
+            charts.holidayChart.data.datasets[0].data = data.chart6.data;
+            charts.holidayChart.update();
+
+            // Update Chart 7
+            charts.lgaRiskChart.data.labels = data.chart7.labels;
+            charts.lgaRiskChart.data.datasets[0].data = data.chart7.data;
+            charts.lgaRiskChart.update();
+
+            // Update Chart 8
+            charts.townRiskChart.data.labels = data.chart8.labels;
+            charts.townRiskChart.data.datasets[0].data = data.chart8.data;
+            charts.townRiskChart.update();
+        }}
+
+        document.getElementById('stateFilter').addEventListener('change', function(e) {{
+            updateCharts(e.target.value);
         }});
 
-        new Chart(document.getElementById('popSchoolChart'), {{
-            type: 'bar',
-            data: {{
-                labels: {json.dumps(chart2_labels)},
-                datasets: [
-                    {{ label: 'Population', data: {json.dumps(chart2_pop)}, backgroundColor: 'rgba(54, 162, 235, 0.6)', yAxisID: 'y' }},
-                    {{ label: 'Open Schools', data: {json.dumps(chart2_open)}, type: 'line', borderColor: '#28a745', yAxisID: 'y1' }}
-                ]
-            }},
-            options: {{ responsive: true, maintainAspectRatio: false, scales: {{ y: {{ position: 'left' }}, y1: {{ position: 'right' }} }} }}
-        }});
-
-        new Chart(document.getElementById('conflictSchoolChart'), {{
-            type: 'bar',
-            data: {{
-                labels: {json.dumps(chart3_labels)},
-                datasets: [
-                    {{ label: 'Conflict Events (2020-2024)', data: {json.dumps(chart3_conflict)}, backgroundColor: 'rgba(220, 53, 69, 0.7)', yAxisID: 'y' }},
-                    {{ label: 'Open Schools', data: {json.dumps(chart3_schools)}, type: 'line', borderColor: '#28a745', backgroundColor: '#28a745', borderWidth: 3, tension: 0.1, yAxisID: 'y1' }}
-                ]
-            }},
-            options: {{ 
-                responsive: true, maintainAspectRatio: false,
-                interaction: {{ mode: 'index', intersect: false }},
-                scales: {{ 
-                    y: {{ type: 'linear', display: true, position: 'left', title: {{ display: true, text: 'Conflict Events' }} }},
-                    y1: {{ type: 'linear', display: true, position: 'right', title: {{ display: true, text: 'Number of Schools' }}, grid: {{ drawOnChartArea: false }} }}
-                }} 
-            }}
-        }});
-
-        // --- Conflict Pattern Charts ---
-        new Chart(document.getElementById('monthChart'), {{
-            type: 'line',
-            data: {{
-                labels: {json.dumps(month_labels)},
-                datasets: [{{ label: 'Total Historical Conflicts', data: {json.dumps(chart4_data)}, borderColor: '#6f42c1', backgroundColor: 'rgba(111, 66, 193, 0.2)', fill: true, tension: 0.3 }}]
-            }},
-            options: {{ responsive: true, maintainAspectRatio: false }}
-        }});
-
-        new Chart(document.getElementById('timingChart'), {{
-            type: 'bar',
-            data: {{
-                labels: {json.dumps(chart5_labels)},
-                datasets: [{{ 
-                    label: 'Conflict Events', 
-                    data: {json.dumps(chart5_data)}, 
-                    backgroundColor: ['#dc3545', '#ffc107', '#ffc107', '#28a745', '#17a2b8', '#17a2b8', '#17a2b8'] 
-                }}]
-            }},
-            options: {{ responsive: true, maintainAspectRatio: false, plugins: {{ legend: {{ display: false }} }} }}
-        }});
-
-        new Chart(document.getElementById('holidayChart'), {{
-            type: 'bar',
-            data: {{
-                labels: {json.dumps(chart6_labels)},
-                datasets: [{{ label: 'Conflict Events (Within 7-day window)', data: {json.dumps(chart6_data)}, backgroundColor: '#6610f2' }}]
-            }},
-            options: {{ responsive: true, maintainAspectRatio: false, indexAxis: 'y' }}
-        }});
-
-        // --- Predictive Risk Charts ---
-        new Chart(document.getElementById('lgaRiskChart'), {{
-            type: 'bar',
-            data: {{
-                labels: {json.dumps(chart7_labels)},
-                datasets: [{{ label: 'Calculated Risk Score', data: {json.dumps(chart7_data)}, backgroundColor: 'rgba(220, 53, 69, 0.85)' }}]
-            }},
-            options: {{ responsive: true, maintainAspectRatio: false, indexAxis: 'y' }}
-        }});
-
-        new Chart(document.getElementById('townRiskChart'), {{
-            type: 'bar',
-            data: {{
-                labels: {json.dumps(chart8_labels)},
-                datasets: [{{ label: 'Calculated Risk Score', data: {json.dumps(chart8_data)}, backgroundColor: 'rgba(253, 126, 20, 0.85)' }}]
-            }},
-            options: {{ responsive: true, maintainAspectRatio: false, indexAxis: 'y' }}
-        }});
+        initCharts('All states');
     </script>
 
     <div style="max-width: 1200px; margin: 40px auto 20px; padding: 20px; background: #fff; border-left: 5px solid #17a2b8; border-radius: 4px; font-size: 1.05em; color: #333; line-height: 1.6; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
@@ -325,6 +436,10 @@ html_template = f"""<!DOCTYPE html>
 </html>
 """
 
+# Write to root and docs/
 with open("deep_dive.html", "w") as f:
     f.write(html_template)
-print("Deep Dive HTML generated at deep_dive.html")
+with open("docs/deep_dive.html", "w") as f:
+    f.write(html_template)
+
+print("Deep Dive HTML generated at deep_dive.html and docs/deep_dive.html")
