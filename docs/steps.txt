@@ -1,0 +1,110 @@
+# Complete Recreation Guide for BAYstatesEducationConflict Project
+
+Follow these steps to manually recreate the project in a new, different GitHub repository.
+
+---
+
+## 1. Project Directory & File Structure
+
+Here is a summary of the project structure you will be creating:
+
+├── GEMINI.md                       # Project conventions
+├── requirements.txt                 # Python libraries to install
+├── index.html                       # Alternate entry point
+├── deep_dive.html                   # Alternate deep dive layout
+├── docs/                            # Public Dashboard (served via GitHub Pages)
+│   ├── index.html
+│   ├── deep_dive.html
+│   └── (generated interactive HTML maps and charts)
+├── scripts/                         # Python scripts for data analysis & mapping
+│   ├── create_bay_map.py
+│   ├── analyze_conflict_patterns.py
+│   └── (various fetch/process scripts)
+├── data/                            # Datasets
+│   ├── BAY_school_population.csv
+│   ├── BAY_schools.csv
+│   ├── conflict_BAY.csv
+│   ├── clean/                       # Cleaned data outputs
+│   └── raw/                         # Raw DTM Nigeria & ACLED datasets
+└── More/
+    └── index.html                   # Universal Location Analysis tool
+
+---
+
+## 2. Walkthrough Steps
+
+### Step 1: Create the Directory Structure
+Create a parent folder on your machine and navigate inside it. Then, run the following commands to create the exact folder structure:
+```bash
+mkdir -p data/raw data/clean scripts docs/analysis More maps
+```
+
+### Step 2: Initialize Git
+Run this command inside the project root directory:
+```bash
+git init -b main
+```
+
+### Step 3: Populate the Project Files
+Copy the original files from this repository to your new directory:
+1. Copy all python scripts from the `scripts/` folder into your new `scripts/` folder.
+2. Copy the index HTML files:
+   * Copy `More/index.html` to your local `More/index.html`.
+   * Copy `requirements.txt` and `GEMINI.md` to your root.
+3. Download or copy all files from `data/raw/` into your new `data/raw/` folder (including the `nga_shp/` shapefiles).
+
+### Step 4: Install Python Dependencies
+Open your terminal inside the project root and install the required packages:
+```bash
+pip install -r requirements.txt
+```
+
+### Step 5: Run the Data Processing Pipeline
+Execute the Python scripts in this exact order to process data and generate dashboards:
+
+1. **Clean raw datasets:**
+   ```bash
+   python scripts/process_idp_data.py
+   python scripts/merge_school_status.py
+   ```
+2. **Compile vulnerability statistics:**
+   ```bash
+   python scripts/analyze_vulnerability.py
+   ```
+3. **Generate GeoJSON maps:**
+   ```bash
+   python scripts/prepare_map_geojson.py
+   ```
+4. **Produce the main HTML dashboard & analytics page:**
+   ```bash
+   python scripts/build_vulnerability_map.py
+   python scripts/build_deep_dive.py
+   ```
+5. **Generate specialized maps and trend charts:**
+   ```bash
+   python scripts/create_bay_map.py
+   python scripts/plot_conflict_proximity.py
+   python scripts/plot_schools_at_risk_5km.py
+   python scripts/analyze_conflict_patterns.py
+   ```
+
+*Note: Running this pipeline compiles raw data and populates files in `docs/` and the root folder automatically.*
+
+### Step 6: Push Code to Your New GitHub Repository
+Link your folder to your new GitHub repository and upload:
+```bash
+git add .
+git commit -m "Initial repository creation"
+git remote add origin https://github.com/your-username/your-new-repo.git
+git push -u origin main
+```
+
+### Step 7: Configure GitHub Pages
+1. Open your repository on GitHub.
+2. Go to **Settings** > **Pages** in the left sidebar.
+3. Under **Build and deployment**:
+   * **Source**: `Deploy from a branch`
+   * **Branch**: `main`
+   * **Folder**: `/docs`
+4. Click **Save**.
+5. Your dashboard will live at `https://your-username.github.io/your-new-repo/`.
